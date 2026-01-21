@@ -1,22 +1,14 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import dynamic from 'next/dynamic';
+import { useState, useEffect, Suspense, lazy } from 'react';
+
+// Welcome is imported directly for instant load - it's lightweight
 import Welcome from '../components/Welcome';
 
-// Lazy load components - they'll be preloaded during welcome screen
-const Navbar = dynamic(() => import('../components/Navbar'), { 
-  ssr: false,
-  loading: () => null 
-});
-const Hero = dynamic(() => import('../components/Hero'), { 
-  ssr: false,
-  loading: () => null 
-});
-const Footer = dynamic(() => import('../components/Footer'), { 
-  ssr: false,
-  loading: () => null 
-});
+// Lazy load heavy components - they load during welcome screen
+const Navbar = lazy(() => import('../components/Navbar'));
+const Hero = lazy(() => import('../components/Hero'));
+const Footer = lazy(() => import('../components/Footer'));
 
 // This persists during SPA navigation but resets on actual page refresh
 let welcomeShownThisPageLoad = false;
@@ -24,47 +16,40 @@ let welcomeShownThisPageLoad = false;
 export default function Home() {
   // Show welcome only on fresh page load/refresh, not on SPA navigation back
   const [showWelcome, setShowWelcome] = useState(!welcomeShownThisPageLoad);
-  const [componentsReady, setComponentsReady] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
 
-  // Preload all components while welcome is showing
+  // Preload all components immediately when page mounts
   useEffect(() => {
-    if (showWelcome) {
-      // Start loading components immediately in the background
-      Promise.all([
+    // Start preloading components right away in background
+    const preloadComponents = async () => {
+      await Promise.all([
         import('../components/Navbar'),
         import('../components/Hero'),
         import('../components/Footer'),
-      ]).then(() => {
-        setComponentsReady(true);
-      });
-    }
-  }, [showWelcome]);
+      ]);
+      setIsLoaded(true);
+    };
+    
+    preloadComponents();
+  }, []);
 
   const handleWelcomeComplete = () => {
     welcomeShownThisPageLoad = true;
     setShowWelcome(false);
   };
 
+  // Show welcome immediately - it's the first thing that loads
+  if (showWelcome) {
+    return <Welcome onComplete={handleWelcomeComplete} />;
+  }
+
   return (
-    <>
-      {showWelcome && <Welcome onComplete={handleWelcomeComplete} />}
-      <div 
-        className="min-h-screen bg-black"
-        style={{ 
-          visibility: showWelcome ? 'hidden' : 'visible',
-          opacity: showWelcome ? 0 : 1,
-          transition: 'opacity 0.3s ease-in'
-        }}
-      >
-        {/* Render components even while hidden so they're ready */}
-        {(componentsReady || !showWelcome) && (
-          <>
-            <Navbar />
-            <Hero />
-            <Footer />
-          </>
-        )}
-      </div>
-    </>
+    <div className="min-h-screen bg-slate-950">
+      <Suspense fallback={null}>
+        <Navbar />
+        <Hero />
+        <Footer />
+      </Suspense>
+    </div>
   );
 }

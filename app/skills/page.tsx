@@ -4,7 +4,7 @@ import Footer from '../../components/Footer';
 
 export default function SkillsPage() {
   return (
-    <div className="min-h-screen bg-black">
+    <div className="min-h-screen bg-slate-950">
       <Navbar />
       <main className="pt-20">
         <Skills />

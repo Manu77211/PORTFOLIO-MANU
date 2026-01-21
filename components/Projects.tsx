@@ -57,13 +57,13 @@ export default function Projects() {
   ];
 
   return (
-    <section id="projects" className="py-20 bg-black">
+    <section id="projects" className="py-20 bg-linear-to-br from-slate-900 via-cyan-950/20 to-slate-950">
       <div className="max-w-7xl mx-auto px-6">
         <div ref={projectsRef} className={`text-center mb-16 ${projectsVisible ? 'animate-on-scroll animate' : 'animate-on-scroll'}`}>
-          <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent mb-4">
+          <h2 className="text-4xl md:text-5xl font-bold bg-linear-to-r from-cyan-600 to-teal-500 bg-clip-text text-transparent mb-4">
             Featured Projects
           </h2>
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+          <p className="text-gray-500 text-lg max-w-2xl mx-auto">
             A showcase of my recent work, combining creativity with cutting-edge technology
           </p>
         </div>
@@ -72,7 +72,7 @@ export default function Projects() {
           {projects.map((project, index) => (
             <div
               key={project.id}
-              className={`group relative bg-gradient-to-br from-gray-900 to-gray-800 rounded-2xl p-6 border border-purple-500/20 hover:border-purple-400/40 transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/20 ${
+              className={`group relative bg-linear-to-br from-cyan-950/30 via-slate-950 to-blue-950/20 rounded-2xl p-6 border border-cyan-700/20 hover:border-cyan-700/40 transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-cyan-800/20 ${
                 projectsVisible ? 'animate-on-scroll animate' : 'animate-on-scroll'
               }`}
               style={{ animationDelay: `${index * 0.2}s` }}
@@ -83,10 +83,10 @@ export default function Projects() {
               </div>
 
               {/* Project Content */}
-              <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-purple-300 transition-colors">
+              <h3 className="text-2xl font-bold text-gray-200 mb-3 group-hover:text-cyan-400 transition-colors">
                 {project.title}
               </h3>
-              <p className="text-gray-400 mb-4 leading-relaxed">
+              <p className="text-gray-500 mb-4 leading-relaxed">
                 {project.description}
               </p>
 
@@ -95,13 +95,13 @@ export default function Projects() {
                 {project.tech.slice(0, 4).map((tech, index) => (
                   <span
                     key={index}
-                    className="bg-purple-500/10 text-purple-300 text-sm px-3 py-1 rounded-full border border-purple-500/20"
+                    className="bg-gray-800/20 text-cyan-400 text-sm px-3 py-1 rounded-full border border-cyan-700/20"
                   >
                     {tech}
                   </span>
                 ))}
                 {project.tech.length > 4 && (
-                  <span className="bg-gray-500/10 text-gray-400 text-sm px-3 py-1 rounded-full border border-gray-500/20">
+                  <span className="bg-gray-500/10 text-gray-500 text-sm px-3 py-1 rounded-full border border-gray-500/20">
                     +{project.tech.length - 4} more
                   </span>
                 )}
@@ -112,7 +112,7 @@ export default function Projects() {
                 href={project.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center text-cyan-400 hover:text-cyan-300 transition-colors group-hover:translate-x-2 transform duration-300"
+                className="inline-flex items-center text-cyan-500 hover:text-cyan-400 transition-colors group-hover:translate-x-2 transform duration-300"
               >
                 View Project
                 <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -121,18 +121,18 @@ export default function Projects() {
               </a>
 
               {/* Hover Overlay with Details */}
-              <div className="absolute inset-0 bg-black/95 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center p-6 rounded-2xl">
+              <div className="absolute inset-0 bg-slate-950/95 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center p-6 rounded-2xl">
                 <div className="text-center max-w-sm">
                   <div className="text-5xl mb-4">{project.image}</div>
-                  <h4 className="text-xl font-bold text-white mb-3">{project.title}</h4>
-                  <p className="text-gray-300 text-sm mb-4 leading-relaxed">
+                  <h4 className="text-xl font-bold text-gray-200 mb-3">{project.title}</h4>
+                  <p className="text-gray-400 text-sm mb-4 leading-relaxed">
                     {project.description}
                   </p>
                   <div className="flex flex-wrap justify-center gap-2 mb-4">
                     {project.tech.map((tech, index) => (
                       <span
                         key={index}
-                        className="bg-purple-500/20 text-purple-200 text-xs px-2 py-1 rounded-full border border-purple-500/30"
+                        className="bg-slate-800/30 text-cyan-600 text-xs px-2 py-1 rounded-full border border-cyan-700/30"
                       >
                         {tech}
                       </span>
@@ -142,7 +142,7 @@ export default function Projects() {
                     href={project.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-block bg-gradient-to-r from-purple-600 to-blue-600 text-white font-semibold py-2 px-4 rounded-full hover:from-purple-700 hover:to-blue-700 transition-all duration-300 transform hover:scale-105"
+                    className="inline-block bg-linear-to-r from-cyan-600 to-teal-500 text-gray-200 font-semibold py-2 px-4 rounded-full hover:from-cyan-800 hover:to-cyan-950 transition-all duration-300 transform hover:scale-105"
                   >
                     View on GitHub
                   </a>
@@ -154,7 +154,7 @@ export default function Projects() {
 
         {/* View More Button */}
         <div className={`text-center mt-12 ${projectsVisible ? 'animate-on-scroll animate' : 'animate-on-scroll'}`} style={{ animationDelay: '0.8s' }}>
-          <button className="bg-gradient-to-r from-purple-600 to-blue-600 text-white font-semibold py-3 px-8 rounded-full hover:from-purple-700 hover:to-blue-700 transition-all duration-300 transform hover:scale-105 shadow-lg shadow-purple-500/25">
+          <button className="bg-linear-to-r from-cyan-600 to-teal-500 text-gray-200 font-semibold py-3 px-8 rounded-full hover:from-cyan-800 hover:to-cyan-950 transition-all duration-300 transform hover:scale-105 shadow-lg shadow-cyan-800/25">
             View All Projects
           </button>
         </div>

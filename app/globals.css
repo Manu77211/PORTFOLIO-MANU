@@ -458,44 +458,4 @@ html:not(.dark) body {
   background: linear-gradient(to bottom right, #f8fafc, #e2e8f0);
 }
 
-/* Light mode overrides */
-html:not(.dark) .bg-black {
-  background-color: #f8fafc !important;
-}
-
-html:not(.dark) .bg-gray-900 {
-  background-color: #f1f5f9 !important;
-}
-
-html:not(.dark) .bg-gray-800 {
-  background-color: #e2e8f0 !important;
-}
-
-html:not(.dark) .text-white {
-  color: #1e293b !important;
-}
-
-html:not(.dark) .text-gray-300 {
-  color: #475569 !important;
-}
-
-html:not(.dark) .text-gray-400 {
-  color: #64748b !important;
-}
-
-html:not(.dark) .from-gray-900 {
-  --tw-gradient-from: #f1f5f9 !important;
-}
-
-html:not(.dark) .to-gray-800 {
-  --tw-gradient-to: #e2e8f0 !important;
-}
-
-html:not(.dark) .to-black {
-  --tw-gradient-to: #f8fafc !important;
-}
-
-html:not(.dark) nav {
-  background-color: rgba(255, 255, 255, 0.8) !important;
-  border-color: rgba(139, 92, 246, 0.3) !important;
-}
+/* Light mode overrides - removed invalid bracket notation rules */

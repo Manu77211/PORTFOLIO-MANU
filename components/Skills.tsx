@@ -126,23 +126,23 @@ export default function Skills() {
 
   const getLevelColor = (level: string) => {
     switch (level) {
-      case 'BEGINNER': return 'from-red-500 to-orange-500';
-      case 'INTERMEDIATE': return 'from-yellow-500 to-orange-500';
-      case 'ADVANCED': return 'from-blue-500 to-purple-500';
-      case 'EXPERT': return 'from-purple-500 to-pink-500';
+      case 'BEGINNER': return 'from-cyan-900 to-cyan-900';
+      case 'INTERMEDIATE': return 'from-yellow-500 to-cyan-900';
+      case 'ADVANCED': return 'from-cyan-600 to-teal-500';
+      case 'EXPERT': return 'from-cyan-800 to-cyan-800';
       default: return 'from-gray-500 to-gray-600';
     }
   };
 
   return (
-    <section id="skills" className="py-20 bg-gradient-to-br from-gray-900 via-purple-900/10 to-black">
+    <section id="skills" className="py-20 bg-linear-to-br from-slate-950 via-cyan-950/10 to-slate-950">
       <div className="max-w-7xl mx-auto px-6">
         {/* Header */}
         <div ref={skillsRef} className={`text-center mb-16 ${skillsVisible ? 'animate-on-scroll animate' : 'animate-on-scroll'}`}>
-          <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent mb-4">
+          <h2 className="text-4xl md:text-5xl font-bold bg-linear-to-r from-cyan-600 to-teal-500 bg-clip-text text-transparent mb-4">
             Skills & Expertise
           </h2>
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+          <p className="text-gray-500 text-lg max-w-2xl mx-auto">
             My technical skills and professional certifications
           </p>
         </div>
@@ -152,23 +152,23 @@ export default function Skills() {
           {skillCategories.map((category, categoryIndex) => (
             <div
               key={categoryIndex}
-              className={`group bg-gray-900/50 backdrop-blur-sm rounded-2xl p-6 border border-purple-500/20 hover:border-purple-400/50 transition-all duration-500 hover:shadow-2xl hover:shadow-purple-500/20 relative overflow-hidden ${skillsVisible ? 'animate-on-scroll animate' : 'animate-on-scroll'}`}
+              className={`group bg-linear-to-br from-cyan-950/30 via-slate-950 to-blue-950/20 backdrop-blur-sm rounded-2xl p-6 border border-cyan-700/20 hover:border-cyan-700/50 transition-all duration-500 hover:shadow-2xl hover:shadow-cyan-800/20 relative overflow-hidden ${skillsVisible ? 'animate-on-scroll animate' : 'animate-on-scroll'}`}
               style={{ 
                 animationDelay: `${categoryIndex * 0.1}s`,
                 transform: 'perspective(1000px)'
               }}
             >
               {/* Hover gradient overlay */}
-              <div className="absolute inset-0 bg-gradient-to-br from-purple-600/5 via-transparent to-blue-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="absolute inset-0 bg-linear-to-br from-cyan-900/5 via-transparent to-cyan-800/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               
               {/* Animated corner accent */}
-              <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-purple-500/20 to-transparent rounded-bl-full transform scale-0 group-hover:scale-100 transition-transform duration-500 origin-top-right" />
+              <div className="absolute top-0 right-0 w-20 h-20 bg-linear-to-br from-cyan-800/20 to-transparent rounded-bl-full transform scale-0 group-hover:scale-100 transition-transform duration-500 origin-top-right" />
               
               <div className="flex items-center mb-6 relative z-10">
                 <span className="text-4xl mr-4 transform group-hover:scale-125 group-hover:rotate-12 transition-all duration-500 group-hover:drop-shadow-[0_0_15px_rgba(139,92,246,0.5)]">
                   {category.icon}
                 </span>
-                <h3 className="text-2xl font-bold text-white group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-purple-400 group-hover:to-cyan-400 group-hover:bg-clip-text transition-all duration-300">
+                <h3 className="text-2xl font-bold text-gray-200 group-hover:text-transparent group-hover:bg-linear-to-r group-hover:from-cyan-900 group-hover:to-cyan-900 group-hover:bg-clip-text transition-all duration-300">
                   {category.title}
                 </h3>
               </div>
@@ -177,14 +177,14 @@ export default function Skills() {
                 {category.skills.map((skill, skillIndex) => (
                   <div key={skillIndex} className="space-y-2 group/skill">
                     <div className="flex justify-between items-center">
-                      <span className="text-gray-300 font-medium group-hover/skill:text-white transition-colors duration-300">{skill.name}</span>
-                      <span className={`text-xs font-semibold px-2 py-1 rounded-full bg-gradient-to-r ${getLevelColor(skill.level)} text-white shadow-lg`}>
+                      <span className="text-gray-400 font-medium group-hover/skill:text-gray-200 transition-colors duration-300">{skill.name}</span>
+                      <span className={`text-xs font-semibold px-2 py-1 rounded-full bg-linear-to-r ${getLevelColor(skill.level)} text-gray-200 shadow-lg`}>
                         {skill.level}
                       </span>
                     </div>
                     <div className="skill-bar w-full bg-gray-700/50 rounded-full h-2.5 overflow-hidden">
                       <div
-                        className={`skill-bar-fill bg-gradient-to-r ${getLevelColor(skill.level)} h-2.5 rounded-full relative`}
+                        className={`skill-bar-fill bg-linear-to-r ${getLevelColor(skill.level)} h-2.5 rounded-full relative`}
                         style={{
                           width: skillsVisible ? `${skill.percentage}%` : '0%',
                           transitionDuration: '1.5s',
@@ -193,7 +193,7 @@ export default function Skills() {
                         }}
                       >
                         {/* Shimmer effect */}
-                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-[shimmer_2s_infinite]" style={{ backgroundSize: '200% 100%' }} />
+                        <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/30 to-transparent animate-[shimmer_2s_infinite]" style={{ backgroundSize: '200% 100%' }} />
                       </div>
                     </div>
                   </div>
@@ -201,17 +201,17 @@ export default function Skills() {
               </div>
               
               {/* Bottom accent line */}
-              <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-purple-500 via-blue-500 to-cyan-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
+              <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-linear-to-r from-cyan-800 via-cyan-900 to-cyan-950 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
             </div>
           ))}
         </div>
 
         {/* Certifications Section */}
         <div className={`text-center mb-16 ${skillsVisible ? 'animate-on-scroll animate' : 'animate-on-scroll'}`} style={{ animationDelay: '0.8s' }}>
-          <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold bg-linear-to-r from-green-400 to-cyan-800 bg-clip-text text-transparent mb-4">
             Certifications
           </h2>
-          <p className="text-gray-400 text-lg">
+          <p className="text-gray-500 text-lg">
             Professional certifications and achievements
           </p>
         </div>
@@ -220,26 +220,26 @@ export default function Skills() {
           {certifications.map((cert, index) => (
             <div
               key={index}
-              className={`cert-card bg-gradient-to-br from-gray-900 to-gray-800 rounded-2xl p-6 border border-green-500/20 hover:border-green-400/50 transition-all duration-500 group relative overflow-hidden ${skillsVisible ? 'animate-on-scroll animate' : 'animate-on-scroll'}`}
+              className={`cert-card bg-linear-to-br from-cyan-950/30 via-slate-950 to-blue-950/20 rounded-2xl p-6 border border-green-500/20 hover:border-green-400/50 transition-all duration-500 group relative overflow-hidden ${skillsVisible ? 'animate-on-scroll animate' : 'animate-on-scroll'}`}
               style={{ animationDelay: `${0.9 + (index * 0.1)}s` }}
             >
               {/* Shimmer overlay */}
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-green-400/5 to-transparent opacity-0 group-hover:opacity-100 group-hover:animate-[shimmer_1.5s_infinite]" style={{ backgroundSize: '200% 100%' }} />
+              <div className="absolute inset-0 bg-linear-to-r from-transparent via-green-400/5 to-transparent opacity-0 group-hover:opacity-100 group-hover:animate-[shimmer_1.5s_infinite]" style={{ backgroundSize: '200% 100%' }} />
               
               {/* Top accent */}
-              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-green-500 via-blue-500 to-green-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
+              <div className="absolute top-0 left-0 right-0 h-1 bg-linear-to-r from-green-500 via-cyan-900 to-green-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
               
               <div className="flex items-center mb-4 relative z-10">
-                <div className="w-14 h-14 bg-gradient-to-r from-green-500 to-blue-500 rounded-full flex items-center justify-center mr-4 shadow-lg shadow-green-500/30 group-hover:shadow-green-500/50 group-hover:scale-110 transition-all duration-500">
-                  <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="w-14 h-14 bg-linear-to-r from-green-500 to-cyan-900 rounded-full flex items-center justify-center mr-4 shadow-lg shadow-green-500/30 group-hover:shadow-green-500/50 group-hover:scale-110 transition-all duration-500">
+                  <svg className="w-7 h-7 text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                 </div>
                 <div>
-                  <h4 className="text-lg font-bold text-white group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-green-400 group-hover:to-blue-400 group-hover:bg-clip-text transition-all duration-300">
+                  <h4 className="text-lg font-bold text-gray-200 group-hover:text-transparent group-hover:bg-linear-to-r group-hover:from-green-400 group-hover:to-cyan-800 group-hover:bg-clip-text transition-all duration-300">
                     {cert.title}
                   </h4>
-                  <p className="text-gray-400 text-sm group-hover:text-gray-300 transition-colors">{cert.issuer}</p>
+                  <p className="text-gray-500 text-sm group-hover:text-gray-400 transition-colors">{cert.issuer}</p>
                 </div>
               </div>
 
@@ -248,11 +248,11 @@ export default function Skills() {
                   <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
                   {cert.status}
                 </span>
-                <span className="text-gray-400 text-sm">{cert.year}</span>
+                <span className="text-gray-500 text-sm">{cert.year}</span>
               </div>
 
               <div className="flex items-center justify-between relative z-10">
-                <span className="text-xs text-gray-500 bg-gray-700/50 px-3 py-1.5 rounded-full group-hover:bg-gray-700 transition-colors">
+                <span className="text-xs text-gray-600 bg-gray-700/50 px-3 py-1.5 rounded-full group-hover:bg-gray-700 transition-colors">
                   ✓ Certificate Valid
                 </span>
                 <button className="text-green-400 hover:text-green-300 text-sm font-semibold transition-all duration-300 group-hover:translate-x-1 flex items-center gap-1">

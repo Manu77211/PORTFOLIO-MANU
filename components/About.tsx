@@ -1,10 +1,124 @@
 'use client';
 
-import { useScrollAnimation } from '../hooks/useScrollAnimation';
+import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 
+// Custom hook for scroll-triggered animations with direction support
+function useScrollReveal(options = { threshold: 0.15 }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        setIsVisible(true);
+      }
+    }, options);
+
+    const current = ref.current;
+    if (current) observer.observe(current);
+
+    return () => {
+      if (current) observer.unobserve(current);
+    };
+  }, [options]);
+
+  return { ref, isVisible };
+}
+
+// Journey Card with individual scroll animation
+function JourneyCard({ 
+  item, 
+  index, 
+  isLeft 
+}: { 
+  item: { year: string; type: string; title: string; subtitle: string; description: string; color: string };
+  index: number;
+  isLeft: boolean;
+}) {
+  const { ref, isVisible } = useScrollReveal({ threshold: 0.2 });
+
+  const colorClasses: Record<string, string> = {
+    purple: 'border-cyan-700/30 hover:border-cyan-700 hover:shadow-cyan-800/20',
+    blue: 'border-cyan-700/30 hover:border-cyan-700 hover:shadow-cyan-900/20',
+    cyan: 'border-cyan-700/30 hover:border-cyan-700 hover:shadow-cyan-950/20',
+    green: 'border-green-500/30 hover:border-green-400 hover:shadow-green-500/20',
+    pink: 'border-cyan-700/30 hover:border-cyan-700 hover:shadow-cyan-800/20',
+  };
+
+  return (
+    <div 
+      ref={ref}
+      className={`flex flex-col md:flex-row items-center gap-8 ${isLeft ? '' : 'md:flex-row-reverse'}`}
+    >
+      {/* Card Container */}
+      <div className="flex-1 w-full">
+        <div 
+          className={`
+            group relative bg-linear-to-br from-slate-950/90 to-gray-950/70 p-6 rounded-2xl 
+            border-2 ${colorClasses[item.color] || colorClasses.purple}
+            backdrop-blur-sm max-w-lg
+            transition-all duration-700 ease-out
+            hover:scale-[1.02] hover:shadow-2xl
+            ${isLeft ? 'md:ml-auto' : ''}
+            ${isVisible 
+              ? 'opacity-100 translate-x-0 rotate-0' 
+              : `opacity-0 ${isLeft ? 'translate-x-24 rotate-2' : '-translate-x-24 -rotate-2'}`
+            }
+          `}
+          style={{ transitionDelay: `${index * 150}ms` }}
+        >
+          {/* Glow effect on hover */}
+          <div className="absolute inset-0 rounded-2xl bg-linear-to-br from-cyan-800/10 to-cyan-900/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+          
+          {/* Shimmer effect */}
+          <div className="absolute inset-0 rounded-2xl overflow-hidden">
+            <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+          </div>
+          
+          <div className="relative z-10">
+            <div className="flex items-center gap-3 mb-3">
+              <span className="bg-slate-800/30 text-cyan-400 px-3 py-1 rounded-full text-sm font-semibold border border-cyan-700/30">
+                {item.year}
+              </span>
+              <span className="text-gray-500 text-sm">{item.type}</span>
+            </div>
+            <h3 className="text-xl font-bold text-gray-200 mb-1 group-hover:text-cyan-400 transition-colors duration-300">
+              {item.title}
+            </h3>
+            <p className="text-cyan-500/80 text-sm mb-3 font-medium">{item.subtitle}</p>
+            <p className="text-gray-500 text-sm leading-relaxed">{item.description}</p>
+          </div>
+        </div>
+      </div>
+      
+      {/* Timeline dot with pulse */}
+      <div className="hidden md:flex flex-col items-center relative">
+        <div 
+          className={`absolute w-8 h-8 bg-cyan-800/40 rounded-full transition-all duration-700 ${
+            isVisible ? 'animate-ping opacity-100' : 'opacity-0'
+          }`} 
+          style={{ animationDuration: '2s' }}
+        />
+        <div 
+          className={`w-5 h-5 bg-linear-to-r from-cyan-600 to-teal-500 rounded-full border-4 border-slate-900 z-10 shadow-lg shadow-cyan-800/50 transition-all duration-500 ${
+            isVisible ? 'scale-100' : 'scale-0'
+          }`}
+          style={{ transitionDelay: `${index * 150 + 200}ms` }}
+        />
+      </div>
+      
+      <div className="flex-1 hidden md:block" />
+    </div>
+  );
+}
+
 export default function About() {
-  const { ref: aboutRef, isVisible: aboutVisible } = useScrollAnimation();
+  const { ref: heroRef, isVisible: heroVisible } = useScrollReveal();
+  const { ref: statsRef, isVisible: statsVisible } = useScrollReveal();
+  const { ref: techRef, isVisible: techVisible } = useScrollReveal();
+  const { ref: journeyHeaderRef, isVisible: journeyHeaderVisible } = useScrollReveal();
+  const { ref: ctaRef, isVisible: ctaVisible } = useScrollReveal();
 
   const journey = [
     {
@@ -12,176 +126,309 @@ export default function About() {
       type: "💼 Work",
       title: "SpamShield - AI Spam Detection",
       subtitle: "Personal Project",
-      description: "Built a comprehensive full-stack spam detection platform with AI-powered analysis, real-time threat categorization, and interactive analytics dashboard. Integrated Gemini AI for intelligent detection with 85%+ accuracy."
+      description: "Built a comprehensive full-stack spam detection platform with AI-powered analysis, real-time threat categorization, and interactive analytics dashboard. Integrated Gemini AI for intelligent detection with 85%+ accuracy.",
+      color: "purple"
     },
     {
       year: "2025",
       type: "💼 Work",
       title: "SecureX",
       subtitle: "Hackathon Project",
-      description: "Designed and developed an interactive platform for cybersecurity education, providing real-time news, awareness tools, and learning resources. Built with React, Node.js, Clerk for authentication."
+      description: "Designed and developed an interactive platform for cybersecurity education, providing real-time news, awareness tools, and learning resources. Built with React, Node.js, Clerk for authentication.",
+      color: "blue"
     },
     {
       year: "2025",
       type: "🏆 Achievement",
       title: "Oracle Certifications",
       subtitle: "Oracle University",
-      description: "Earned OCI Developer Professional and Oracle Generative AI Professional certifications, demonstrating expertise in cloud development and AI technologies."
+      description: "Earned OCI Developer Professional and Oracle Generative AI Professional certifications, demonstrating expertise in cloud development and AI technologies.",
+      color: "cyan"
     },
     {
       year: "2024",
       type: "🎓 Education",
       title: "B.Tech in Computer Science Engineering",
       subtitle: "Reva University",
-      description: "Currently in 3rd year at Reva University, Bengaluru. Specializing in Full Stack Development and Machine Learning. Expected graduation: June 2027."
+      description: "Currently in 3rd year at Reva University, Bengaluru. Specializing in Full Stack Development and Machine Learning. Expected graduation: June 2027.",
+      color: "green"
     },
     {
       year: "2024",
       type: "🏆 Achievement",
       title: "AI/ML Certifications",
       subtitle: "Infosys Springboard",
-      description: "Deep Learning For Developers, AI Primer Certification, and Machine Learning for Beginners certifications completed."
+      description: "Deep Learning For Developers, AI Primer Certification, and Machine Learning for Beginners certifications completed.",
+      color: "pink"
     }
   ];
 
+  const techStack = [
+    { name: "React", icon: "⚛️", level: 95 },
+    { name: "Next.js", icon: "▲", level: 85 },
+    { name: "TypeScript", icon: "📘", level: 80 },
+    { name: "Node.js", icon: "🟢", level: 85 },
+    { name: "Python", icon: "🐍", level: 75 },
+    { name: "MongoDB", icon: "🍃", level: 80 },
+  ];
+
   return (
-    <section id="about" className="py-20 bg-black">
+    <section id="about" className="py-20 bg-slate-950 overflow-hidden">
       <div className="max-w-7xl mx-auto px-6">
-        {/* Hero Section */}
-        <div ref={aboutRef} className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-20">
-          {/* Left side - Image */}
-          <div className={`relative ${aboutVisible ? 'animate-left animate' : 'animate-left'}`}>
-            <div className="relative w-80 h-80 mx-auto">
-              <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full blur-3xl opacity-30 animate-pulse"></div>
-              <div className="relative w-full h-full bg-gradient-to-br from-gray-800 to-gray-900 rounded-full border-4 border-purple-500/30 flex items-center justify-center">
-                <div className="text-8xl">👨‍💻</div>
-              </div>
-            </div>
+        
+        {/* Hero Section with Enhanced Animations */}
+        <div ref={heroRef} className="relative mb-32">
+          {/* Animated background orbs */}
+          <div className="absolute inset-0 overflow-hidden pointer-events-none">
+            <div className="absolute -top-20 -left-20 w-72 h-72 bg-gray-800/20 rounded-full blur-3xl animate-pulse" />
+            <div className="absolute -bottom-20 -right-20 w-96 h-96 bg-cyan-900/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-cyan-950/5 rounded-full blur-3xl" />
           </div>
 
-          {/* Right side - Content */}
-          <div className={`space-y-6 ${aboutVisible ? 'animate-right animate' : 'animate-right'}`}>
-            <div>
-              <p className="text-purple-400 text-lg mb-2">Hi, I'm</p>
-              <h1 className="text-4xl md:text-5xl font-bold text-white mb-2">
-                Manu S
-              </h1>
-              <h2 className="text-2xl md:text-3xl font-semibold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
-                Aspiring Backend Engineer & AI Enthusiast
-              </h2>
-            </div>
-            
-            <p className="text-gray-300 text-lg leading-relaxed">
-              B.Tech student passionate about building scalable backends, AI-powered tools, and impactful products using MERN Stack and AI/ML frameworks. Turning ideas into code, and code into impact 🚀
-            </p>
-
-            <div className="flex flex-wrap gap-4 text-gray-400 text-sm">
-              <div className="flex items-center gap-2">
-                <span>📧</span>
-                <a href="mailto:manu.772110@gmail.com" className="hover:text-purple-400 transition-colors">manu.772110@gmail.com</a>
-              </div>
-              <div className="flex items-center gap-2">
-                <span>📍</span>
-                <span>Bengaluru, India</span>
-              </div>
-            </div>
-
-            <div className="flex flex-wrap gap-4 pt-4">
-              <a href="/resume.pdf" target="_blank" className="bg-gradient-to-r from-purple-600 to-blue-600 text-white font-semibold py-3 px-6 rounded-full hover:from-purple-700 hover:to-blue-700 transition-all duration-300 transform hover:scale-105 shadow-lg shadow-purple-500/25">
-                Download Resume
-              </a>
-              <Link href="/projects" className="border-2 border-purple-400 text-purple-300 font-semibold py-3 px-6 rounded-full hover:bg-purple-400 hover:text-black transition-all duration-300 transform hover:scale-105">
-                View Projects
-              </Link>
-            </div>
-          </div>
-        </div>
-
-        {/* Stats Section */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-20">
-          <div className="bg-gradient-to-br from-gray-900 to-gray-800 p-6 rounded-2xl border border-purple-500/20 text-center hover:border-purple-400/40 transition-all duration-300 hover:scale-105">
-            <div className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent mb-2">1+</div>
-            <div className="text-gray-400 text-sm">Years of Experience</div>
-          </div>
-          <div className="bg-gradient-to-br from-gray-900 to-gray-800 p-6 rounded-2xl border border-blue-500/20 text-center hover:border-blue-400/40 transition-all duration-300 hover:scale-105">
-            <div className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent mb-2">25+</div>
-            <div className="text-gray-400 text-sm">Projects Completed</div>
-          </div>
-          <div className="bg-gradient-to-br from-gray-900 to-gray-800 p-6 rounded-2xl border border-cyan-500/20 text-center hover:border-cyan-400/40 transition-all duration-300 hover:scale-105">
-            <div className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent mb-2">10+</div>
-            <div className="text-gray-400 text-sm">Skills & Tools</div>
-          </div>
-          <div className="bg-gradient-to-br from-gray-900 to-gray-800 p-6 rounded-2xl border border-green-500/20 text-center hover:border-green-400/40 transition-all duration-300 hover:scale-105">
-            <div className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent mb-2">7+</div>
-            <div className="text-gray-400 text-sm">Certifications</div>
-          </div>
-        </div>
-
-        {/* About Me Section */}
-        <div className="mb-20">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-8 text-center">About Me</h2>
-          <div className="max-w-4xl mx-auto">
-            <p className="text-gray-300 text-lg leading-relaxed text-center mb-8">
-              Aspiring Backend Engineer and AI Enthusiast with expertise in building scalable solutions using MERN stack and AI/ML frameworks. Currently pursuing B.Tech in Computer Science, I'm passionate about automation, API development, and creating system-level AI tools that make a real difference.
-            </p>
-            
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-              {["Full Stack Development", "Machine Learning", "Open Source Contribution", "API Development", "Cloud Technologies", "Fitness & Health Tech"].map((interest, index) => (
-                <div key={index} className="bg-gradient-to-br from-gray-900 to-gray-800 p-4 rounded-xl border border-purple-500/20 text-center hover:border-purple-400/40 transition-all duration-300">
-                  <span className="text-gray-300">{interest}</span>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center relative z-10">
+            {/* Left side - Animated Avatar */}
+            <div 
+              className={`relative transition-all duration-1000 ease-out ${
+                heroVisible 
+                  ? 'opacity-100 translate-x-0 rotate-0' 
+                  : 'opacity-0 -translate-x-20 -rotate-6'
+              }`}
+            >
+              <div className="relative w-80 h-80 mx-auto group">
+                {/* Animated rings */}
+                <div className="absolute inset-[-20px] rounded-full border-2 border-cyan-700/30 animate-spin" style={{ animationDuration: '20s' }} />
+                <div className="absolute inset-[-40px] rounded-full border border-cyan-700/20 animate-spin" style={{ animationDuration: '30s', animationDirection: 'reverse' }} />
+                <div className="absolute inset-[-60px] rounded-full border border-cyan-700/10 animate-spin" style={{ animationDuration: '40s' }} />
+                
+                {/* Glow effect */}
+                <div className="absolute inset-0 bg-linear-to-br from-cyan-800 via-cyan-900 to-cyan-950 rounded-full blur-3xl opacity-30 group-hover:opacity-50 transition-opacity duration-500" />
+                
+                {/* Main avatar */}
+                <div className="relative w-full h-full bg-linear-to-br from-gray-950 to-slate-950 rounded-full border-4 border-cyan-700/30 flex items-center justify-center overflow-hidden group-hover:border-cyan-700/60 transition-all duration-500 group-hover:scale-105">
+                  <div className="text-8xl group-hover:scale-110 transition-transform duration-500">👨‍💻</div>
+                  <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
                 </div>
-              ))}
+
+                {/* Floating tech badges */}
+                <div className="absolute -top-4 -right-4 bg-slate-800/30 backdrop-blur-sm px-3 py-1 rounded-full border border-cyan-700/30 text-cyan-400 text-sm animate-bounce" style={{ animationDuration: '3s' }}>
+                  React ⚛️
+                </div>
+                <div className="absolute -bottom-4 -left-4 bg-cyan-900/20 backdrop-blur-sm px-3 py-1 rounded-full border border-cyan-700/30 text-cyan-500 text-sm animate-bounce" style={{ animationDuration: '3.5s', animationDelay: '0.5s' }}>
+                  Next.js ▲
+                </div>
+                <div className="absolute top-1/2 -right-8 bg-slate-800/30 backdrop-blur-sm px-3 py-1 rounded-full border border-cyan-700/30 text-cyan-400 text-sm animate-bounce" style={{ animationDuration: '4s', animationDelay: '1s' }}>
+                  AI/ML 🤖
+                </div>
+              </div>
+            </div>
+
+            {/* Right side - Content */}
+            <div 
+              className={`space-y-6 transition-all duration-1000 ease-out ${
+                heroVisible 
+                  ? 'opacity-100 translate-x-0' 
+                  : 'opacity-0 translate-x-20'
+              }`}
+              style={{ transitionDelay: '200ms' }}
+            >
+              <div className="relative">
+                <p className="text-cyan-500 text-lg mb-2 tracking-widest uppercase font-medium">Hello, I&apos;m</p>
+                <h1 className="text-5xl md:text-6xl font-slate-950 text-gray-200 mb-3 relative">
+                  Manu S
+                  <span className="absolute -bottom-2 left-0 w-24 h-1 bg-linear-to-r from-cyan-600 to-teal-500 rounded-full" />
+                </h1>
+                <h2 className="text-2xl md:text-3xl font-semibold bg-linear-to-r from-cyan-600 via-teal-500 to-cyan-700 bg-clip-text text-transparent">
+                  Aspiring Backend Engineer & AI Enthusiast
+                </h2>
+              </div>
+              
+              <p className="text-gray-400 text-lg leading-relaxed max-w-xl">
+                B.Tech student passionate about building <span className="text-cyan-500 font-semibold">scalable backends</span>, 
+                <span className="text-cyan-400 font-semibold"> AI-powered tools</span>, and 
+                <span className="text-cyan-500 font-semibold"> impactful products</span> using MERN Stack and AI/ML frameworks.
+              </p>
+
+              <div className="flex flex-wrap gap-4 text-gray-500 text-sm">
+                <div className="flex items-center gap-2 bg-gray-900/50 px-4 py-2 rounded-full border border-cyan-700/40/50 hover:border-cyan-700/50 transition-colors">
+                  <span>📧</span>
+                  <a href="mailto:manu.772110@gmail.com" className="hover:text-cyan-500 transition-colors">manu.772110@gmail.com</a>
+                </div>
+                <div className="flex items-center gap-2 bg-gray-900/50 px-4 py-2 rounded-full border border-cyan-700/40/50 hover:border-cyan-700/50 transition-colors">
+                  <span>📍</span>
+                  <span>Bengaluru, India</span>
+                </div>
+              </div>
+
+              <div className="flex flex-wrap gap-4 pt-4">
+                <a 
+                  href="/resume.pdf" 
+                  target="_blank" 
+                  className="group relative bg-linear-to-r from-cyan-600 to-teal-500 text-gray-200 font-semibold py-3 px-8 rounded-full overflow-hidden transition-all duration-300 transform hover:scale-105 hover:shadow-xl hover:shadow-cyan-800/25"
+                >
+                  <span className="relative z-10 flex items-center gap-2">
+                    Download Resume
+                    <svg className="w-4 h-4 group-hover:translate-y-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                  </span>
+                </a>
+                <Link 
+                  href="/projects" 
+                  className="group border-2 border-cyan-700/50 text-cyan-400 font-semibold py-3 px-8 rounded-full hover:bg-gray-800/20 hover:border-cyan-700 transition-all duration-300 transform hover:scale-105 flex items-center gap-2"
+                >
+                  View Projects
+                  <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </svg>
+                </Link>
+              </div>
             </div>
           </div>
         </div>
 
-        {/* My Journey Section */}
-        <div className="mb-20">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 text-center">My Journey</h2>
-          <p className="text-gray-400 text-center mb-12">A timeline of milestones, achievements, and career-defining moments</p>
+        {/* Animated Stats Section */}
+        <div 
+          ref={statsRef}
+          className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-32"
+        >
+          {[
+            { value: "1+", label: "Years Experience", icon: "⏱️", delay: 0 },
+            { value: "25+", label: "Projects Built", icon: "🚀", delay: 100 },
+            { value: "10+", label: "Technologies", icon: "🛠️", delay: 200 },
+            { value: "7+", label: "Certifications", icon: "🏆", delay: 300 },
+          ].map((stat, index) => (
+            <div 
+              key={index}
+              className={`group relative bg-linear-to-br from-slate-950/80 to-gray-950/50 p-8 rounded-3xl border border-cyan-700/40/50 hover:border-cyan-700/50 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-cyan-800/10 backdrop-blur-sm overflow-hidden ${
+                statsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+              }`}
+              style={{ transitionDelay: `${stat.delay}ms` }}
+            >
+              <div className="absolute -top-10 -right-10 text-6xl opacity-10 group-hover:opacity-20 transition-opacity">
+                {stat.icon}
+              </div>
+              <div className="text-4xl md:text-5xl font-slate-950 bg-linear-to-r from-cyan-600 via-teal-500 to-cyan-700 bg-clip-text text-transparent mb-2">
+                {stat.value}
+              </div>
+              <div className="text-gray-500 text-sm font-medium">{stat.label}</div>
+            </div>
+          ))}
+        </div>
+
+        {/* Tech Stack Showcase */}
+        <div 
+          ref={techRef}
+          className={`mb-32 transition-all duration-1000 ${techVisible ? 'opacity-100' : 'opacity-0'}`}
+        >
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-200 mb-4">Tech Arsenal</h2>
+            <p className="text-gray-500 max-w-2xl mx-auto">The tools and technologies I use to bring ideas to life</p>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+            {techStack.map((tech, index) => (
+              <div 
+                key={index}
+                className={`group relative bg-linear-to-br from-slate-950 to-gray-950 p-6 rounded-2xl border border-cyan-700/40/50 hover:border-cyan-700/50 transition-all duration-500 hover:scale-110 hover:-translate-y-2 cursor-pointer ${
+                  techVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+                }`}
+                style={{ transitionDelay: `${index * 100}ms` }}
+              >
+                <div className="text-4xl mb-3 group-hover:scale-125 transition-transform duration-300">{tech.icon}</div>
+                <h3 className="text-gray-200 font-semibold mb-2">{tech.name}</h3>
+                <div className="w-full h-1.5 bg-gray-700 rounded-full overflow-hidden">
+                  <div 
+                    className="h-full bg-linear-to-r from-cyan-800 to-cyan-950 rounded-full transition-all duration-1000 ease-out"
+                    style={{ 
+                      width: techVisible ? `${tech.level}%` : '0%',
+                      transitionDelay: `${index * 100 + 500}ms`
+                    }}
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Journey Section - Cards Animate from Sides */}
+        <div className="mb-32">
+          <div 
+            ref={journeyHeaderRef}
+            className={`text-center mb-16 transition-all duration-1000 ${journeyHeaderVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+          >
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-200 mb-4">My Journey</h2>
+            <p className="text-gray-500">A timeline of milestones and career-defining moments</p>
+          </div>
           
           <div className="relative">
-            {/* Timeline line */}
-            <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-0.5 bg-gradient-to-b from-purple-500 to-blue-500 hidden md:block"></div>
+            {/* Center timeline line with gradient */}
+            <div 
+              className={`absolute left-1/2 transform -translate-x-1/2 w-1 bg-linear-to-b from-cyan-800 via-cyan-900 to-cyan-950 hidden md:block transition-all duration-1000 rounded-full ${
+                journeyHeaderVisible ? 'h-full opacity-100' : 'h-0 opacity-0'
+              }`}
+              style={{ transitionDelay: '300ms' }}
+            />
             
-            <div className="space-y-8">
+            <div className="space-y-16">
               {journey.map((item, index) => (
-                <div key={index} className={`flex flex-col md:flex-row items-center gap-8 ${index % 2 === 0 ? 'md:flex-row-reverse' : ''}`}>
-                  <div className="flex-1 w-full">
-                    <div className={`bg-gradient-to-br from-gray-900 to-gray-800 p-6 rounded-2xl border border-purple-500/20 hover:border-purple-400/40 transition-all duration-300 ${index % 2 === 0 ? 'md:ml-auto' : ''} max-w-lg`}>
-                      <div className="flex items-center gap-2 mb-2">
-                        <span className="bg-purple-500/20 text-purple-300 px-3 py-1 rounded-full text-sm">{item.year}</span>
-                        <span className="text-gray-400 text-sm">{item.type}</span>
-                      </div>
-                      <h3 className="text-xl font-bold text-white mb-1">{item.title}</h3>
-                      <p className="text-purple-400 text-sm mb-3">{item.subtitle}</p>
-                      <p className="text-gray-400 text-sm leading-relaxed">{item.description}</p>
-                    </div>
-                  </div>
-                  
-                  {/* Timeline dot */}
-                  <div className="hidden md:flex w-4 h-4 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full border-4 border-gray-900 z-10"></div>
-                  
-                  <div className="flex-1 hidden md:block"></div>
-                </div>
+                <JourneyCard 
+                  key={index}
+                  item={item}
+                  index={index}
+                  isLeft={index % 2 === 0}
+                />
               ))}
             </div>
           </div>
         </div>
 
-        {/* Contact CTA */}
-        <div className="text-center bg-gradient-to-br from-gray-900 to-gray-800 p-12 rounded-3xl border border-purple-500/20">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Let's work together</h2>
-          <p className="text-gray-400 text-lg mb-8 max-w-2xl mx-auto">
-            I'm always open to discussing new opportunities, interesting projects, or just having a chat about technology.
-          </p>
-          <div className="flex flex-wrap justify-center gap-4">
-            <a href="mailto:manu.772110@gmail.com" className="bg-gradient-to-r from-purple-600 to-blue-600 text-white font-semibold py-3 px-8 rounded-full hover:from-purple-700 hover:to-blue-700 transition-all duration-300 transform hover:scale-105 shadow-lg shadow-purple-500/25">
-              Send me an email
-            </a>
-            <Link href="/projects" className="border-2 border-purple-400 text-purple-300 font-semibold py-3 px-8 rounded-full hover:bg-purple-400 hover:text-black transition-all duration-300 transform hover:scale-105">
-              View my work →
-            </Link>
+        {/* Contact CTA with Glow */}
+        <div 
+          ref={ctaRef}
+          className={`relative transition-all duration-1000 ${ctaVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}
+        >
+          {/* Glow background */}
+          <div className="absolute inset-0 bg-linear-to-r from-cyan-800/20 via-cyan-900/20 to-blue-950/20 blur-3xl rounded-3xl" />
+          
+          <div className="relative text-center bg-linear-to-br from-slate-950/90 to-gray-950/90 p-16 rounded-3xl border border-cyan-700/20 backdrop-blur-sm overflow-hidden">
+            {/* Animated background pattern */}
+            <div className="absolute inset-0 opacity-5">
+              <div className="absolute inset-0" style={{
+                backgroundImage: `radial-gradient(circle at 25% 25%, purple 1px, transparent 1px),
+                                  radial-gradient(circle at 75% 75%, blue 1px, transparent 1px)`,
+                backgroundSize: '60px 60px'
+              }} />
+            </div>
+            
+            <h2 className="relative text-4xl md:text-5xl font-bold text-gray-200 mb-6">
+              Let&apos;s Build Something 
+              <span className="bg-linear-to-r from-cyan-900 to-cyan-900 bg-clip-text text-transparent"> Amazing</span>
+            </h2>
+            <p className="relative text-gray-500 text-lg mb-10 max-w-2xl mx-auto">
+              I&apos;m always excited to collaborate on innovative projects and explore new opportunities. Let&apos;s connect!
+            </p>
+            <div className="relative flex flex-wrap justify-center gap-6">
+              <a 
+                href="mailto:manu.772110@gmail.com" 
+                className="group bg-linear-to-r from-cyan-600 to-teal-500 text-gray-200 font-semibold py-4 px-10 rounded-full hover:shadow-2xl hover:shadow-cyan-800/30 transition-all duration-300 transform hover:scale-105 flex items-center gap-3"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+                Get In Touch
+              </a>
+              <a 
+                href="https://github.com/Manu77211" 
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group border-2 border-cyan-700/30 text-gray-400 font-semibold py-4 px-10 rounded-full hover:border-cyan-700 hover:text-cyan-400 hover:bg-gray-800/20 transition-all duration-300 transform hover:scale-105 flex items-center gap-3"
+              >
+                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                </svg>
+                View GitHub
+              </a>
+            </div>
           </div>
         </div>
       </div>

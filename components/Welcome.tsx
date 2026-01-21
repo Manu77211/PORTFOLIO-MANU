@@ -12,12 +12,12 @@ export default function Welcome({ onComplete }: WelcomeProps) {
 
   useEffect(() => {
     const timers = [
-      setTimeout(() => setPhase(1), 300),
-      setTimeout(() => setPhase(2), 1000),
-      setTimeout(() => setPhase(3), 1800),
-      setTimeout(() => setPhase(4), 2800),
-      setTimeout(() => setIsExiting(true), 4200),
-      setTimeout(onComplete, 5000),
+      setTimeout(() => setPhase(1), 400),
+      setTimeout(() => setPhase(2), 1200),
+      setTimeout(() => setPhase(3), 2200),
+      setTimeout(() => setPhase(4), 3500),
+      setTimeout(() => setIsExiting(true), 6000),
+      setTimeout(onComplete, 7000),
     ];
 
     return () => timers.forEach(clearTimeout);
@@ -251,25 +251,83 @@ export default function Welcome({ onComplete }: WelcomeProps) {
           style={{
             display: 'flex',
             justifyContent: 'center',
-            gap: '24px',
+            alignItems: 'center',
+            gap: '32px',
             marginTop: '40px',
             transition: 'all 0.7s ease-out',
             opacity: phase >= 4 ? 1 : 0,
             transform: phase >= 4 ? 'translateY(0)' : 'translateY(20px)',
           }}
         >
-          {['⚛️', '▲', '🚀', '💻', '🎨'].map((icon, i) => (
-            <span
-              key={i}
-              style={{
-                fontSize: '28px',
-                animation: `float ${2 + i * 0.2}s ease-in-out infinite`,
-                animationDelay: `${i * 0.1}s`,
-              }}
+          {/* React */}
+          <span
+            style={{
+              fontSize: '32px',
+              animation: 'float 2s ease-in-out infinite',
+            }}
+          >
+            ⚛️
+          </span>
+          
+          {/* Next.js - SVG icon */}
+          <div
+            style={{
+              animation: 'float 2.2s ease-in-out infinite',
+              animationDelay: '0.1s',
+            }}
+          >
+            <svg
+              width="32"
+              height="32"
+              viewBox="0 0 180 180"
+              fill="none"
             >
-              {icon}
-            </span>
-          ))}
+              <mask id="mask0" maskUnits="userSpaceOnUse" x="0" y="0" width="180" height="180">
+                <circle cx="90" cy="90" r="90" fill="white" />
+              </mask>
+              <g mask="url(#mask0)">
+                <circle cx="90" cy="90" r="90" fill="white" />
+                <path d="M149.508 157.52L69.142 54H54v71.97h12.114V69.384l73.885 95.461a90.304 90.304 0 009.509-7.325z" fill="slate-950" />
+                <path d="M115 54h12v72h-12z" fill="slate-950" />
+              </g>
+            </svg>
+          </div>
+          
+          {/* TypeScript */}
+          <span
+            style={{
+              fontSize: '28px',
+              fontWeight: 'bold',
+              color: '#3178c6',
+              textShadow: '0 0 10px rgba(49,120,198,0.5)',
+              animation: 'float 2.4s ease-in-out infinite',
+              animationDelay: '0.2s',
+            }}
+          >
+            TS
+          </span>
+          
+          {/* Python */}
+          <span
+            style={{
+              fontSize: '32px',
+              animation: 'float 2.6s ease-in-out infinite',
+              animationDelay: '0.3s',
+            }}
+          >
+            🐍
+          </span>
+          
+          {/* AI/ML */}
+          <span
+            style={{
+              fontSize: '32px',
+              animation: 'float 2.8s ease-in-out infinite',
+              animationDelay: '0.4s',
+            }}
+          >
+            🤖
+          </span>
         </div>
 
         {/* Loading dots */}
