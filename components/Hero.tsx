@@ -1,7 +1,20 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import Image from 'next/image';
 import LogoLoop from './LogoLoop';
+import { 
+  ReactIcon, 
+  NextIcon, 
+  TypeScriptIcon, 
+  PythonIcon, 
+  NodeIcon, 
+  MongoDBIcon, 
+  PostgreSQLIcon, 
+  FirebaseIcon, 
+  TailwindIcon, 
+  DockerIcon 
+} from './icons/TechIcons';
 
 export default function Hero() {
   const heroRef = useRef<HTMLDivElement>(null);
@@ -10,18 +23,18 @@ export default function Hero() {
 
   // Tech logos for the loop
   const techLogos = [
-    { node: <span className="text-3xl">⚛️</span>, title: 'React' },
-    { node: <span className="text-3xl">▲</span>, title: 'Next.js' },
-    { node: <span className="text-3xl text-cyan-400 font-bold">TS</span>, title: 'TypeScript' },
-    { node: <span className="text-3xl">🐍</span>, title: 'Python' },
-    { node: <span className="text-3xl text-green-400 font-bold">🟢</span>, title: 'Node.js' },
-    { node: <span className="text-3xl">🍃</span>, title: 'MongoDB' },
-    { node: <span className="text-3xl text-cyan-500 font-bold">🐘</span>, title: 'PostgreSQL' },
-    { node: <span className="text-3xl">🔥</span>, title: 'Firebase' },
-    { node: <span className="text-3xl text-cyan-500 font-bold">🎨</span>, title: 'Tailwind' },
+    { node: <ReactIcon size={35} className="transition-transform duration-300 hover:scale-110" />, title: 'React' },
+    { node: <NextIcon size={35} className="transition-transform duration-300 hover:scale-110" />, title: 'Next.js' },
+    { node: <TypeScriptIcon size={35} className="transition-transform duration-300 hover:scale-110" />, title: 'TypeScript' },
+    { node: <PythonIcon size={35} className="transition-transform duration-300 hover:scale-110" />, title: 'Python' },
+    { node: <NodeIcon size={35} className="transition-transform duration-300 hover:scale-110" />, title: 'Node.js' },
+    { node: <MongoDBIcon size={35} className="transition-transform duration-300 hover:scale-110" />, title: 'MongoDB' },
+    { node: <PostgreSQLIcon size={35} className="transition-transform duration-300 hover:scale-110" />, title: 'PostgreSQL' },
+    { node: <FirebaseIcon size={35} className="transition-transform duration-300 hover:scale-110" />, title: 'Firebase' },
+    { node: <TailwindIcon size={35} className="transition-transform duration-300 hover:scale-110" />, title: 'Tailwind' },
     { node: <span className="text-3xl">🤖</span>, title: 'AI/ML' },
     { node: <span className="text-3xl">☁️</span>, title: 'Cloud' },
-    { node: <span className="text-3xl">🐳</span>, title: 'Docker' },
+    { node: <DockerIcon size={35} className="transition-transform duration-300 hover:scale-110" />, title: 'Docker' },
   ];
 
   useEffect(() => {
@@ -55,27 +68,27 @@ export default function Hero() {
 
   const featureCards = [
     {
-      icon: '⚛️',
+      icon: 'react',
       title: 'Full-Stack Development',
-      description: 'Building end-to-end web applications with modern technologies like React, Next.js, Node.js, and TypeScript.',
+      description: 'Building end-to-end web applications using React, Next.js, Node.js, Express, TypeScript, and Python, with a growing focus on backend logic and system structure.',
       color: 'purple'
     },
     {
       icon: '🚀',
-      title: 'Performance Optimization',
-      description: 'Creating fast, scalable applications with optimal user experience and lightning-fast load times.',
+      title: 'Problem-Driven Development',
+      description: 'Experience from hackathons, competitive programming, and project work that emphasizes quick learning, iteration, and working under constraints.',
       color: 'blue'
     },
     {
-      icon: '🎨',
-      title: 'User-Centric Design',
-      description: 'Designing intuitive interfaces that users love, focusing on accessibility and responsive design.',
+      icon: 'design',
+      title: 'Practical UI Development',
+      description: 'Creating clean, functional user interfaces that support application logic, prioritizing usability and responsiveness over heavy visual complexity.',
       color: 'cyan'
     },
     {
       icon: '✅',
-      title: 'Quality Assurance',
-      description: 'Writing clean, maintainable code with comprehensive testing and following best practices.',
+      title: 'Code Quality & Growth Mindset',
+      description: 'Writing readable, maintainable code while continuously improving through debugging, refactoring, open-source contributions, and feedback.',
       color: 'green'
     }
   ];
@@ -127,10 +140,15 @@ export default function Hero() {
                       
                       {/* Inner photo container */}
                       <div className="absolute inset-[3px] bg-linear-to-br from-gray-950 to-slate-950 overflow-hidden group-hover:scale-105 transition-transform duration-500" style={{ clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)' }}>
-                        {/* Photo - Replace with: <Image src="/profile.jpg" alt="Manu S" fill className="object-cover" /> */}
-                        <div className="w-full h-full flex items-center justify-center text-8xl group-hover:scale-110 transition-transform duration-500">
-                          👨‍💻
-                        </div>
+                        {/* Photo */}
+                        <Image 
+                          src="/manu1.jpeg" 
+                          alt="Manu S" 
+                          fill 
+                          className="object-cover"
+                          style={{ objectPosition: 'center 35%' }}
+                          priority
+                        />
                         
                         {/* Shimmer overlay */}
                         <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
@@ -182,18 +200,15 @@ export default function Hero() {
               <div className="mb-8">
                 <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-300 mb-4">
                   Full-Stack Developer &<br/>
-                  <span className="bg-linear-to-r from-cyan-600 to-teal-500 bg-clip-text text-transparent">AI Enthusiast</span>
+                  <span className="bg-linear-to-r from-cyan-600 to-teal-500 bg-clip-text text-transparent">AI / Automation Enthusiast</span>
                 </h2>
                 <p className="text-lg text-gray-500 max-w-xl mx-auto lg:mx-0">
-                  Building scalable backends and AI-powered tools that make a difference
+                  Building real-world web applications and AI-powered tools through hands-on projects
                 </p>
               </div>
 
               <p className="text-base md:text-lg text-gray-400 mb-10 max-w-xl mx-auto lg:mx-0 leading-relaxed">
-                B.Tech Student passionate about creating <span className="text-cyan-500 font-semibold">scalable solutions</span>, 
-                <span className="text-cyan-400 font-semibold"> innovative AI tools</span>, and 
-                <span className="text-cyan-500 font-semibold"> impactful products</span>. 
-                Turning ideas into reality 🚀
+                B.Tech student actively developing full-stack applications using modern technologies, with a strong interest in backend systems, APIs, and practical AI integrations. I focus on learning by building, experimenting, and improving through real use cases.
               </p>
 
               {/* CTA Buttons */}
@@ -217,7 +232,7 @@ export default function Hero() {
 
               {/* Tech Stack Badges */}
               <div className="flex flex-wrap justify-center lg:justify-start gap-2">
-                {['React ⚛️', 'Next.js', 'TypeScript', 'Node.js', 'Python 🐍', 'AI/ML 🤖'].map((tech, i) => (
+                {['React', 'Next.js', 'TypeScript', 'Node.js', 'Python', 'AI / Automation'].map((tech, i) => (
                   <div key={i} className="bg-gray-900/60 backdrop-blur-sm px-3 py-1.5 rounded-full border border-cyan-700/30 text-gray-400 text-xs font-medium hover:border-cyan-700/60 hover:text-gray-200 transition-colors duration-300">
                     {tech}
                   </div>
@@ -243,25 +258,25 @@ export default function Hero() {
               <div className="text-4xl md:text-5xl font-bold bg-linear-to-r from-cyan-600 via-teal-500 to-cyan-700 bg-clip-text text-transparent mb-2">
                 25+
               </div>
-              <div className="text-gray-500 text-sm md:text-base">Projects Completed</div>
+              <div className="text-gray-500 text-sm md:text-base">Projects Built</div>
             </div>
             <div className="text-center">
               <div className="text-4xl md:text-5xl font-bold bg-linear-to-r from-cyan-600 via-teal-500 to-cyan-700 bg-clip-text text-transparent mb-2">
                 1+
               </div>
-              <div className="text-gray-500 text-sm md:text-base">Years Experience</div>
+              <div className="text-gray-500 text-sm md:text-base">Years of Practical Experience</div>
             </div>
             <div className="text-center">
               <div className="text-4xl md:text-5xl font-bold bg-linear-to-r from-cyan-600 via-teal-500 to-cyan-700 bg-clip-text text-transparent mb-2">
                 7+
               </div>
-              <div className="text-gray-500 text-sm md:text-base">Certifications</div>
+              <div className="text-gray-500 text-sm md:text-base">Certifications & Programs</div>
             </div>
             <div className="text-center">
               <div className="text-4xl md:text-5xl font-bold bg-linear-to-r from-cyan-600 via-teal-500 to-cyan-700 bg-clip-text text-transparent mb-2">
                 10+
               </div>
-              <div className="text-gray-500 text-sm md:text-base">Technologies</div>
+              <div className="text-gray-500 text-sm md:text-base">Technologies Used</div>
             </div>
           </div>
         </div>
@@ -272,24 +287,30 @@ export default function Hero() {
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-200 mb-4">
-              Built on a foundation of expertise and innovation
+              Built through consistent learning and real project experience
             </h2>
             <p className="text-gray-500 text-lg max-w-3xl mx-auto">
-              Leveraging modern technologies and best practices to deliver exceptional digital solutions
+              Focused on applying modern tools to solve real problems, not just following tutorials
             </p>
           </div>
 
           <div ref={cardsRef} className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
             {featureCards.map((card, index) => {
               const colors = getColorClasses(card.color);
+              const renderIcon = () => {
+                if (card.icon === 'react') return <ReactIcon size={50} className="transition-transform duration-300 group-hover:scale-110" />;
+                if (card.icon === 'design') return <span className="text-4xl">🎨</span>;
+                return <span className="text-4xl">{card.icon}</span>;
+              };
+              
               return (
                 <div
                   key={index}
                   className={`floating-card ${cardsInView ? 'in-view floating' : ''} bg-linear-to-br from-cyan-950/30 via-slate-950 to-blue-950/20 p-8 rounded-2xl border ${colors.border} transition-all duration-500 hover:scale-105 hover:shadow-2xl ${colors.shadow} cursor-pointer group`}
                   style={{ animationDelay: `${index * 0.5}s` }}
                 >
-                  <div className={`${colors.text} text-4xl mb-4 transform group-hover:scale-110 transition-transform duration-300`}>
-                    {card.icon}
+                  <div className={`${colors.text} mb-4 transform transition-transform duration-300`}>
+                    {renderIcon()}
                   </div>
                   <h3 className="text-xl font-bold text-gray-200 mb-3 group-hover:text-transparent group-hover:bg-linear-to-r group-hover:from-cyan-900 group-hover:to-cyan-900 group-hover:bg-clip-text transition-all duration-300">
                     {card.title}
@@ -338,7 +359,9 @@ export default function Hero() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
             <div className="bg-linear-to-br from-cyan-950/30 via-slate-950 to-blue-950/20 p-8 rounded-2xl border border-cyan-700/20 text-center">
-              <div className="text-cyan-500 text-5xl mb-4">⚛️</div>
+              <div className="flex justify-center mb-4">
+                <ReactIcon size={60} className="transition-transform duration-300 hover:scale-110" />
+              </div>
               <h4 className="text-xl font-bold text-gray-200 mb-3">React</h4>
               <p className="text-gray-500 text-sm">
                 The library for web and native user interfaces. Building dynamic and interactive UIs with the latest React features.
@@ -346,7 +369,9 @@ export default function Hero() {
             </div>
 
             <div className="bg-linear-to-br from-cyan-950/30 via-slate-950 to-blue-950/20 p-8 rounded-2xl border border-cyan-700/20 text-center">
-              <div className="text-cyan-400 text-5xl mb-4">▲</div>
+              <div className="flex justify-center mb-4">
+                <NextIcon size={60} className="transition-transform duration-300 hover:scale-110" />
+              </div>
               <h4 className="text-xl font-bold text-gray-200 mb-3">Next.js</h4>
               <p className="text-gray-500 text-sm">
                 Production-ready React framework with full-stack capabilities, optimized for performance and SEO.

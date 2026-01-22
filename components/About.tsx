@@ -1,6 +1,8 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import Image from 'next/image';
+import { ReactIcon, NextIcon, TypeScriptIcon, NodeIcon, PythonIcon, MongoDBIcon } from './icons/TechIcons';
 import Link from 'next/link';
 
 // Custom hook for scroll-triggered animations with direction support
@@ -122,54 +124,62 @@ export default function About() {
 
   const journey = [
     {
-      year: "2025",
-      type: "💼 Work",
-      title: "SpamShield - AI Spam Detection",
-      subtitle: "Personal Project",
-      description: "Built a comprehensive full-stack spam detection platform with AI-powered analysis, real-time threat categorization, and interactive analytics dashboard. Integrated Gemini AI for intelligent detection with 85%+ accuracy.",
-      color: "purple"
-    },
-    {
-      year: "2025",
-      type: "💼 Work",
-      title: "SecureX",
-      subtitle: "Hackathon Project",
-      description: "Designed and developed an interactive platform for cybersecurity education, providing real-time news, awareness tools, and learning resources. Built with React, Node.js, Clerk for authentication.",
-      color: "blue"
-    },
-    {
-      year: "2025",
-      type: "🏆 Achievement",
-      title: "Oracle Certifications",
-      subtitle: "Oracle University",
-      description: "Earned OCI Developer Professional and Oracle Generative AI Professional certifications, demonstrating expertise in cloud development and AI technologies.",
-      color: "cyan"
-    },
-    {
-      year: "2024",
-      type: "🎓 Education",
-      title: "B.Tech in Computer Science Engineering",
-      subtitle: "Reva University",
-      description: "Currently in 3rd year at Reva University, Bengaluru. Specializing in Full Stack Development and Machine Learning. Expected graduation: June 2027.",
+      year: "2023",
+      type: "🎓 Education & Exploration",
+      title: "Joined B.Tech in Information Science & Engineering",
+      subtitle: "RNS Institute of Technology (RNSIT), Bengaluru",
+      description: "Started my engineering journey and explored programming fundamentals, basic web development, and different areas of computer science. This phase was about understanding the field, experimenting with technologies, and gradually developing interest in software development.",
       color: "green"
     },
     {
       year: "2024",
-      type: "🏆 Achievement",
-      title: "AI/ML Certifications",
-      subtitle: "Infosys Springboard",
-      description: "Deep Learning For Developers, AI Primer Certification, and Machine Learning for Beginners certifications completed.",
+      type: "📚 Foundation Building Phase",
+      title: "DSA, Git, and Project Development",
+      subtitle: "",
+      description: "Began focused preparation in data structures and algorithms and developed consistency in coding practice. Learned Git and GitHub workflows and started building projects to apply concepts beyond academics. This year marked the transition from exploration to structured learning and hands-on execution.",
+      color: "blue"
+    },
+    {
+      year: "2025",
+      type: "🚀 Hackathons & Project Execution",
+      title: "Multiple Hackathons – Finalist in Two",
+      subtitle: "",
+      description: "Actively participated in multiple hackathons, reaching the finalist stage in two hackathons. Worked on real problem statements involving full-stack development, backend logic, and AI-assisted features. These experiences strengthened rapid prototyping, teamwork, and decision-making under tight deadlines.",
+      color: "purple"
+    },
+    {
+      year: "2025",
+      type: "🏆 Open Source Contribution",
+      title: "Hacktoberfest – Super Contributor",
+      subtitle: "",
+      description: "Contributed consistently to open-source repositories during Hacktoberfest and earned the Super Contributor badge. Gained experience working with real-world codebases, pull requests, issue discussions, and collaborative development workflows.",
+      color: "cyan"
+    },
+    {
+      year: "2025",
+      type: "💻 Competitive Programming & Coding Challenges",
+      title: "TCS CodeVita – Round 1",
+      subtitle: "",
+      description: "Participated in TCS CodeVita and successfully cleared Round 1 with an approximate rank of ~2500. Continued participating in online coding challenges to improve algorithmic thinking, speed, and accuracy.",
       color: "pink"
+    },
+    {
+      year: "2025",
+      type: "🧠 Continuous Learning & Growth",
+      title: "Full-Stack, Backend & AI Tooling",
+      subtitle: "",
+      description: "Built and iterated on multiple full-stack projects with increasing focus on backend systems, API design, authentication flows, and practical AI/automation use cases. Continued refining development practices through debugging, refactoring, and learning from real implementation challenges.",
+      color: "cyan"
     }
   ];
 
   const techStack = [
-    { name: "React", icon: "⚛️", level: 95 },
-    { name: "Next.js", icon: "▲", level: 85 },
-    { name: "TypeScript", icon: "📘", level: 80 },
-    { name: "Node.js", icon: "🟢", level: 85 },
-    { name: "Python", icon: "🐍", level: 75 },
-    { name: "MongoDB", icon: "🍃", level: 80 },
+    { name: "React", icon: <ReactIcon size={24} />, level: 95 },
+    { name: "Next.js", icon: <NextIcon size={24} />, level: 85 },
+    { name: "TypeScript", icon: <TypeScriptIcon size={24} />, level: 80 },
+    { name: "Node.js", icon: <NodeIcon size={24} />, level: 85 },
+    { name: "Python", icon: <PythonIcon size={24} />, level: 75 },
+    { name: "MongoDB", icon: <MongoDBIcon size={24} />, level: 80 },
   ];
 
   return (
@@ -205,16 +215,23 @@ export default function About() {
                 
                 {/* Main avatar */}
                 <div className="relative w-full h-full bg-linear-to-br from-gray-950 to-slate-950 rounded-full border-4 border-cyan-700/30 flex items-center justify-center overflow-hidden group-hover:border-cyan-700/60 transition-all duration-500 group-hover:scale-105">
-                  <div className="text-8xl group-hover:scale-110 transition-transform duration-500">👨‍💻</div>
+                  <Image 
+                    src="/manu2.jpeg" 
+                    alt="Manu S"
+                    fill
+                    className="object-cover"
+                    style={{ objectPosition: 'center center' }}
+                    priority
+                  />
                   <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
                 </div>
 
                 {/* Floating tech badges */}
-                <div className="absolute -top-4 -right-4 bg-slate-800/30 backdrop-blur-sm px-3 py-1 rounded-full border border-cyan-700/30 text-cyan-400 text-sm animate-bounce" style={{ animationDuration: '3s' }}>
-                  React ⚛️
+                <div className="absolute -top-4 -right-4 bg-slate-800/30 backdrop-blur-sm px-3 py-1.5 rounded-full border border-cyan-700/30 text-cyan-400 text-sm animate-bounce flex items-center gap-1.5" style={{ animationDuration: '3s' }}>
+                  <ReactIcon size={16} /> React
                 </div>
-                <div className="absolute -bottom-4 -left-4 bg-cyan-900/20 backdrop-blur-sm px-3 py-1 rounded-full border border-cyan-700/30 text-cyan-500 text-sm animate-bounce" style={{ animationDuration: '3.5s', animationDelay: '0.5s' }}>
-                  Next.js ▲
+                <div className="absolute -bottom-4 -left-4 bg-cyan-900/20 backdrop-blur-sm px-3 py-1.5 rounded-full border border-cyan-700/30 text-cyan-500 text-sm animate-bounce flex items-center gap-1.5" style={{ animationDuration: '3.5s', animationDelay: '0.5s' }}>
+                  <NextIcon size={16} /> Next.js
                 </div>
                 <div className="absolute top-1/2 -right-8 bg-slate-800/30 backdrop-blur-sm px-3 py-1 rounded-full border border-cyan-700/30 text-cyan-400 text-sm animate-bounce" style={{ animationDuration: '4s', animationDelay: '1s' }}>
                   AI/ML 🤖
@@ -238,14 +255,12 @@ export default function About() {
                   <span className="absolute -bottom-2 left-0 w-24 h-1 bg-linear-to-r from-cyan-600 to-teal-500 rounded-full" />
                 </h1>
                 <h2 className="text-2xl md:text-3xl font-semibold bg-linear-to-r from-cyan-600 via-teal-500 to-cyan-700 bg-clip-text text-transparent">
-                  Aspiring Backend Engineer & AI Enthusiast
+                  Full-Stack Developer & AI / Automation Enthusiast
                 </h2>
               </div>
               
               <p className="text-gray-400 text-lg leading-relaxed max-w-xl">
-                B.Tech student passionate about building <span className="text-cyan-500 font-semibold">scalable backends</span>, 
-                <span className="text-cyan-400 font-semibold"> AI-powered tools</span>, and 
-                <span className="text-cyan-500 font-semibold"> impactful products</span> using MERN Stack and AI/ML frameworks.
+                B.Tech student specializing in Information Science & Engineering, building full-stack web applications using modern technologies with a strong interest in backend systems, APIs, and practical AI integrations. I focus on learning by building real projects, participating in hackathons, contributing to open source, and consistently improving my problem-solving skills.
               </p>
 
               <div className="flex flex-wrap gap-4 text-gray-500 text-sm">
@@ -292,10 +307,10 @@ export default function About() {
           className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-32"
         >
           {[
-            { value: "1+", label: "Years Experience", icon: "⏱️", delay: 0 },
+            { value: "1+", label: "Years of Active Development", icon: "⏱️", delay: 0 },
             { value: "25+", label: "Projects Built", icon: "🚀", delay: 100 },
-            { value: "10+", label: "Technologies", icon: "🛠️", delay: 200 },
-            { value: "7+", label: "Certifications", icon: "🏆", delay: 300 },
+            { value: "10+", label: "Technologies Used", icon: "🛠️", delay: 200 },
+            { value: "🏆", label: "Hackathons, Open Source & Coding Challenges", icon: "🏆", delay: 300 },
           ].map((stat, index) => (
             <div 
               key={index}
@@ -321,8 +336,8 @@ export default function About() {
           className={`mb-32 transition-all duration-1000 ${techVisible ? 'opacity-100' : 'opacity-0'}`}
         >
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-200 mb-4">Tech Arsenal</h2>
-            <p className="text-gray-500 max-w-2xl mx-auto">The tools and technologies I use to bring ideas to life</p>
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-200 mb-4">🧰 Tech Arsenal</h2>
+            <p className="text-gray-500 max-w-2xl mx-auto">The tools and technologies I actively use to build, experiment, and grow</p>
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
@@ -356,8 +371,8 @@ export default function About() {
             ref={journeyHeaderRef}
             className={`text-center mb-16 transition-all duration-1000 ${journeyHeaderVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
           >
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-200 mb-4">My Journey</h2>
-            <p className="text-gray-500">A timeline of milestones and career-defining moments</p>
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-200 mb-4">📍 My Journey</h2>
+            <p className="text-gray-500">A timeline of learning, experimentation, and growth through hands-on experience</p>
           </div>
           
           <div className="relative">
@@ -402,10 +417,10 @@ export default function About() {
             
             <h2 className="relative text-4xl md:text-5xl font-bold text-gray-200 mb-6">
               Let&apos;s Build Something 
-              <span className="bg-linear-to-r from-cyan-900 to-cyan-900 bg-clip-text text-transparent"> Amazing</span>
+              <span className="bg-linear-to-r from-cyan-900 to-cyan-900 bg-clip-text text-transparent"> Meaningful</span>
             </h2>
             <p className="relative text-gray-500 text-lg mb-10 max-w-2xl mx-auto">
-              I&apos;m always excited to collaborate on innovative projects and explore new opportunities. Let&apos;s connect!
+              I&apos;m open to internships, collaborations, and projects that involve real problem solving, learning, and growth. If you&apos;re working on something challenging or impactful, I&apos;d be glad to connect.
             </p>
             <div className="relative flex flex-wrap justify-center gap-6">
               <a 

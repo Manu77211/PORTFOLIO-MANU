@@ -4,7 +4,43 @@ import Link from 'next/link';
 
 export default function Navbar() {
   return (
-    <nav className="fixed top-6 left-4 right-4 z-50 backdrop-blur-xl bg-linear-to-r from-cyan-950/80 via-slate-900/90 to-blue-900/80 border border-cyan-700/30 rounded-full px-8 py-4 shadow-2xl shadow-cyan-800/20 max-w-6xl mx-auto transition-all duration-300">
+    <nav className="fixed top-6 left-4 right-4 z-50 backdrop-blur-xl bg-linear-to-r from-cyan-950/80 via-slate-900/90 to-blue-900/80 border border-cyan-700/30 rounded-full px-8 py-4 shadow-2xl shadow-cyan-800/20 max-w-6xl mx-auto transition-all duration-300 relative">
+      {/* Animated glowing border effect */}
+      <div className="absolute inset-0 rounded-full pointer-events-none">
+        <div className="absolute inset-0 rounded-full border-2 border-transparent animate-border-glow"></div>
+      </div>
+      
+      <style jsx>{`
+        @keyframes border-glow {
+          0%, 100% {
+            box-shadow: 
+              0 0 5px #06b6d4,
+              inset 0 0 5px #06b6d4;
+            border-color: #06b6d4;
+          }
+          25% {
+            box-shadow: 
+              5px 0 10px #14b8a6,
+              inset 5px 0 10px #14b8a6;
+            border-color: #14b8a6;
+          }
+          50% {
+            box-shadow: 
+              0 5px 10px #06b6d4,
+              inset 0 5px 10px #06b6d4;
+            border-color: #06b6d4;
+          }
+          75% {
+            box-shadow: 
+              -5px 0 10px #0ea5e9,
+              inset -5px 0 10px #0ea5e9;
+            border-color: #0ea5e9;
+          }
+        }
+        .animate-border-glow {
+          animation: border-glow 3s linear infinite;
+        }
+      `}</style>
       <div className="flex items-center justify-between gap-8 relative z-10">
         <Link 
           href="/"

@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { ReactIcon, NextIcon, PythonIcon } from './icons/TechIcons';
 
 interface WelcomeProps {
   onComplete: () => void;
@@ -260,37 +261,22 @@ export default function Welcome({ onComplete }: WelcomeProps) {
           }}
         >
           {/* React */}
-          <span
+          <div
             style={{
-              fontSize: '32px',
               animation: 'float 2s ease-in-out infinite',
             }}
           >
-            ⚛️
-          </span>
+            <ReactIcon size={32} />
+          </div>
           
-          {/* Next.js - SVG icon */}
+          {/* Next.js */}
           <div
             style={{
               animation: 'float 2.2s ease-in-out infinite',
               animationDelay: '0.1s',
             }}
           >
-            <svg
-              width="32"
-              height="32"
-              viewBox="0 0 180 180"
-              fill="none"
-            >
-              <mask id="mask0" maskUnits="userSpaceOnUse" x="0" y="0" width="180" height="180">
-                <circle cx="90" cy="90" r="90" fill="white" />
-              </mask>
-              <g mask="url(#mask0)">
-                <circle cx="90" cy="90" r="90" fill="white" />
-                <path d="M149.508 157.52L69.142 54H54v71.97h12.114V69.384l73.885 95.461a90.304 90.304 0 009.509-7.325z" fill="slate-950" />
-                <path d="M115 54h12v72h-12z" fill="slate-950" />
-              </g>
-            </svg>
+            <NextIcon size={32} />
           </div>
           
           {/* TypeScript */}
@@ -308,15 +294,14 @@ export default function Welcome({ onComplete }: WelcomeProps) {
           </span>
           
           {/* Python */}
-          <span
+          <div
             style={{
-              fontSize: '32px',
               animation: 'float 2.6s ease-in-out infinite',
               animationDelay: '0.3s',
             }}
           >
-            🐍
-          </span>
+            <PythonIcon size={32} />
+          </div>
           
           {/* AI/ML */}
           <span

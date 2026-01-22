@@ -1,5 +1,7 @@
 'use client';
 
+import { ReactIcon } from './icons/TechIcons';
+
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
 
 export default function Projects() {
@@ -43,7 +45,7 @@ export default function Projects() {
       title: "MERN Practice Projects",
       description: "Collection of 21 React projects from beginner to advanced level, providing hands-on experience with MERN stack development and modern web technologies.",
       tech: ["React", "Node.js", "MongoDB", "Express", "JavaScript"],
-      image: "⚛️",
+      image: "react",
       link: "https://github.com/Manu77211/MERN-Practice-Projects"
     },
     {
@@ -78,8 +80,12 @@ export default function Projects() {
               style={{ animationDelay: `${index * 0.2}s` }}
             >
               {/* Project Image/Icon */}
-              <div className="text-6xl mb-4 group-hover:scale-110 transition-transform duration-300">
-                {project.image}
+              <div className="mb-4 transition-transform duration-300 group-hover:scale-110">
+                {project.image === 'react' ? (
+                  <ReactIcon size={70} />
+                ) : (
+                  <span className="text-6xl">{project.image}</span>
+                )}
               </div>
 
               {/* Project Content */}

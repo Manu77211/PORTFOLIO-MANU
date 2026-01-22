@@ -9,8 +9,7 @@ export default function Footer() {
               Manu
             </h3>
             <p className="text-gray-500 mb-6 max-w-md">
-              Full-Stack Developer specializing in modern web technologies and AI integration.
-              Building exceptional digital experiences.
+              Full-stack developer focused on building real applications, strengthening backend depth, and integrating AI into practical products.
             </p>
             <div className="flex space-x-4">
               <a href="https://github.com/Manu77211" target="_blank" rel="noopener noreferrer"
@@ -59,7 +58,7 @@ export default function Footer() {
 
         <div className="border-t border-slate-800 mt-12 pt-8 text-center">
           <p className="text-gray-500">
-            © 2025 Manu. Built with Next.js and passion.
+            © 2025 Manu. Built with Next.js and consistent effort.
           </p>
         </div>
       </div>

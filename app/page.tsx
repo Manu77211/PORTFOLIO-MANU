@@ -1,21 +1,29 @@
 'use client';
 
-import { useState, useEffect, Suspense, lazy } from 'react';
+import { useState, useEffect, Suspense, lazy, useRef } from 'react';
+import dynamic from 'next/dynamic';
 
 // Welcome is imported directly for instant load - it's lightweight
 import Welcome from '../components/Welcome';
+
+// Dynamic import for ThreeBackground with no SSR
+const ThreeBackground = dynamic(() => import('../components/ThreeBackground'), {
+  ssr: false
+});
 
 // Lazy load heavy components - they load during welcome screen
 const Navbar = lazy(() => import('../components/Navbar'));
 const Hero = lazy(() => import('../components/Hero'));
 const Footer = lazy(() => import('../components/Footer'));
 
-// This persists during SPA navigation but resets on actual page refresh
-let welcomeShownThisPageLoad = false;
-
 export default function Home() {
-  // Show welcome only on fresh page load/refresh, not on SPA navigation back
-  const [showWelcome, setShowWelcome] = useState(!welcomeShownThisPageLoad);
+  // Check sessionStorage immediately to prevent flash
+  const [showWelcome, setShowWelcome] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return sessionStorage.getItem('welcomeShown') !== 'true';
+    }
+    return true;
+  });
   const [isLoaded, setIsLoaded] = useState(false);
 
   // Preload all components immediately when page mounts
@@ -34,7 +42,7 @@ export default function Home() {
   }, []);
 
   const handleWelcomeComplete = () => {
-    welcomeShownThisPageLoad = true;
+    sessionStorage.setItem('welcomeShown', 'true');
     setShowWelcome(false);
   };
 
@@ -44,7 +52,10 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-950">
+    <div className="min-h-screen">
+      {/* Three.js animated background */}
+      <ThreeBackground />
+      
       <Suspense fallback={null}>
         <Navbar />
         <Hero />
