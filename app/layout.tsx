@@ -62,6 +62,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark" data-scroll-behavior="smooth">
+      <head>
+        <meta name="google-site-verification" content="eUE4KizYAEU7FOC-jUqg6IqB7gmZnK5vi0wPBvTtxAo" />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-linear-to-br from-slate-900 via-cyan-950 to-blue-950 text-gray-100`}
       >
