@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
 
 export default function Skills() {
@@ -74,53 +75,60 @@ export default function Skills() {
 
   const certifications = [
     {
-      title: "OCI Developer Professional",
-      issuer: "Oracle University",
+      title: "Fundamentals of Artificial Intelligence",
+      issuer: "NPTEL",
       year: "2025",
-      status: "Completed",
-      featured: true
+      image: "/fundamentals of ai nptel.png",
+      pdf: "/Fundamentals of Artificial Intelligence NPTEL.pdf",
+      description: "Comprehensive course on AI fundamentals covering core concepts, algorithms, and practical applications."
     },
     {
-      title: "Oracle Generative AI Professional",
-      issuer: "Oracle University",
+      title: "Software Engineering",
+      issuer: "NPTEL",
       year: "2025",
-      status: "Completed",
-      featured: true
+      image: "/software engineering nptel.png",
+      pdf: "/Software Engineering NPTEL.pdf",
+      description: "In-depth study of software engineering principles, methodologies, and best practices."
     },
     {
-      title: "Deep Learning For Developers",
-      issuer: "Infosys Springboard",
-      year: "2025",
-      status: "Completed",
-      featured: true
+      title: "Fundamentals of Java Programming",
+      issuer: "Coursera",
+      year: "2024",
+      image: "/coursera funadamental of java programming.png",
+      pdf: "/Coursera Fundamentals of java programs.pdf",
+      description: "Complete Java programming fundamentals including OOP concepts and practical implementation."
     },
     {
-      title: "AI Primer Certification",
-      issuer: "Infosys Springboard",
-      year: "2025",
-      status: "Completed",
-      featured: true
+      title: "Introduction to Artificial Intelligence",
+      issuer: "IBM",
+      year: "2024",
+      image: "/ibm intro to ai.png",
+      pdf: "/IBM introduction to AI.pdf",
+      description: "Introduction to AI concepts, machine learning basics, and real-world applications."
     },
     {
-      title: "Machine Learning for Beginners",
-      issuer: "Infosys Springboard",
-      year: "2025",
-      status: "Completed",
-      featured: true
+      title: "Computer Networks",
+      issuer: "IBM",
+      year: "2024",
+      image: "/ibm computer networks.png",
+      pdf: "/IBM Computer Networks.pdf",
+      description: "Comprehensive understanding of computer networking concepts, protocols, and architectures."
     },
     {
-      title: "Java Full Stack Workshop",
-      issuer: "Reva University",
-      year: "2025",
-      status: "Completed",
-      featured: true
+      title: "Database and Management",
+      issuer: "Meta",
+      year: "2024",
+      image: "/meta database structure and management.png",
+      pdf: "/Meta Database and management.pdf",
+      description: "Database design, management, and optimization techniques with practical implementations."
     },
     {
-      title: "DBMS - SQL Advanced and Fundamental topics",
-      issuer: "Scaler",
-      year: "2025",
-      status: "Completed",
-      featured: true
+      title: "Software Development",
+      issuer: "Coursera",
+      year: "2024",
+      image: "/Software Development.png",
+      pdf: "/Software development.pdf",
+      description: "Complete software development lifecycle, agile methodologies, and team collaboration."
     }
   ];
 
@@ -135,7 +143,7 @@ export default function Skills() {
   };
 
   return (
-    <section id="skills" className="py-20 bg-linear-to-br from-slate-950 via-cyan-950/10 to-slate-950">
+    <section id="skills" className="py-20 bg-linear-to-br from-cyan-950/20 via-slate-900 to-slate-950">
       <div className="max-w-7xl mx-auto px-6">
         {/* Header */}
         <div ref={skillsRef} className={`text-center mb-16 ${skillsVisible ? 'animate-on-scroll animate' : 'animate-on-scroll'}`}>
@@ -216,51 +224,60 @@ export default function Skills() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {certifications.map((cert, index) => (
             <div
               key={index}
-              className={`cert-card bg-linear-to-br from-cyan-950/30 via-slate-950 to-blue-950/20 rounded-2xl p-6 border border-green-500/20 hover:border-green-400/50 transition-all duration-500 group relative overflow-hidden ${skillsVisible ? 'animate-on-scroll animate' : 'animate-on-scroll'}`}
+              className={`group bg-linear-to-br from-cyan-950/30 via-slate-950 to-blue-950/20 rounded-2xl overflow-hidden border border-green-500/20 hover:border-green-400/50 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-green-800/20 ${skillsVisible ? 'animate-on-scroll animate' : 'animate-on-scroll'}`}
               style={{ animationDelay: `${0.9 + (index * 0.1)}s` }}
             >
-              {/* Shimmer overlay */}
-              <div className="absolute inset-0 bg-linear-to-r from-transparent via-green-400/5 to-transparent opacity-0 group-hover:opacity-100 group-hover:animate-[shimmer_1.5s_infinite]" style={{ backgroundSize: '200% 100%' }} />
-              
-              {/* Top accent */}
-              <div className="absolute top-0 left-0 right-0 h-1 bg-linear-to-r from-green-500 via-cyan-900 to-green-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
-              
-              <div className="flex items-center mb-4 relative z-10">
-                <div className="w-14 h-14 bg-linear-to-r from-green-500 to-cyan-900 rounded-full flex items-center justify-center mr-4 shadow-lg shadow-green-500/30 group-hover:shadow-green-500/50 group-hover:scale-110 transition-all duration-500">
-                  <svg className="w-7 h-7 text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                </div>
-                <div>
-                  <h4 className="text-lg font-bold text-gray-200 group-hover:text-transparent group-hover:bg-linear-to-r group-hover:from-green-400 group-hover:to-cyan-800 group-hover:bg-clip-text transition-all duration-300">
-                    {cert.title}
-                  </h4>
-                  <p className="text-gray-500 text-sm group-hover:text-gray-400 transition-colors">{cert.issuer}</p>
+              {/* Certificate Preview Image */}
+              <div className="relative h-56 w-full overflow-hidden bg-gray-900">
+                <Image 
+                  src={cert.image} 
+                  alt={cert.title}
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  className="object-cover transition-all duration-500 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-linear-to-t from-slate-950 via-slate-950/40 to-transparent" />
+                <div className="absolute top-4 right-4 bg-green-500/90 backdrop-blur-sm text-white text-xs font-bold px-3 py-1 rounded-full">
+                  {cert.year}
                 </div>
               </div>
 
-              <div className="flex justify-between items-center relative z-10 mb-4">
-                <span className="text-green-400 text-sm font-semibold flex items-center gap-2">
-                  <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-                  {cert.status}
-                </span>
-                <span className="text-gray-500 text-sm">{cert.year}</span>
-              </div>
+              {/* Certificate Info */}
+              <div className="p-6">
+                <div className="flex items-start mb-3">
+                  <div className="w-12 h-12 bg-linear-to-r from-green-500 to-cyan-900 rounded-full flex items-center justify-center mr-3 shadow-lg shadow-green-500/30 group-hover:shadow-green-500/50 group-hover:scale-110 transition-transform duration-300 shrink-0">
+                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <h4 className="text-lg font-bold text-gray-200 group-hover:text-green-400 transition-colors line-clamp-2 mb-1">
+                      {cert.title}
+                    </h4>
+                    <p className="text-cyan-400 text-sm font-semibold">{cert.issuer}</p>
+                  </div>
+                </div>
 
-              <div className="flex items-center justify-between relative z-10">
-                <span className="text-xs text-gray-600 bg-gray-700/50 px-3 py-1.5 rounded-full group-hover:bg-gray-700 transition-colors">
-                  ✓ Certificate Valid
-                </span>
-                <button className="text-green-400 hover:text-green-300 text-sm font-semibold transition-all duration-300 group-hover:translate-x-1 flex items-center gap-1">
-                  View Details 
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                <p className="text-gray-500 text-sm mb-4 line-clamp-2">
+                  {cert.description}
+                </p>
+
+                {/* Action Button */}
+                <a
+                  href={cert.pdf}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full bg-linear-to-r from-green-600 to-cyan-600 text-white font-semibold py-2.5 px-4 rounded-lg hover:from-green-700 hover:to-cyan-700 transition-all duration-300 flex items-center justify-center gap-2 group/btn"
+                >
+                  View Certificate
+                  <svg className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                   </svg>
-                </button>
+                </a>
               </div>
             </div>
           ))}

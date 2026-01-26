@@ -5,6 +5,7 @@ import dynamic from 'next/dynamic';
 
 // Welcome is imported directly for instant load - it's lightweight
 import Welcome from '../components/Welcome';
+import BackToTop from '../components/BackToTop';
 
 // Dynamic import for ThreeBackground with no SSR
 const ThreeBackground = dynamic(() => import('../components/ThreeBackground'), {
@@ -61,6 +62,9 @@ export default function Home() {
         <Hero />
         <Footer />
       </Suspense>
+
+      {/* Back to Top Button */}
+      <BackToTop />
     </div>
   );
 }

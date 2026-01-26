@@ -183,7 +183,7 @@ export default function About() {
   ];
 
   return (
-    <section id="about" className="py-20 bg-slate-950 overflow-hidden">
+    <section id="about" className="py-20 bg-linear-to-br from-cyan-950/20 via-slate-900 to-slate-950 overflow-hidden">
       <div className="max-w-7xl mx-auto px-6">
         
         {/* Hero Section with Enhanced Animations */}
@@ -192,7 +192,7 @@ export default function About() {
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
             <div className="absolute -top-20 -left-20 w-72 h-72 bg-gray-800/20 rounded-full blur-3xl animate-pulse" />
             <div className="absolute -bottom-20 -right-20 w-96 h-96 bg-cyan-900/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-cyan-950/5 rounded-full blur-3xl" />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-150 h-150 bg-cyan-950/5 rounded-full blur-3xl" />
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center relative z-10">
@@ -206,9 +206,9 @@ export default function About() {
             >
               <div className="relative w-80 h-80 mx-auto group">
                 {/* Animated rings */}
-                <div className="absolute inset-[-20px] rounded-full border-2 border-cyan-700/30 animate-spin" style={{ animationDuration: '20s' }} />
-                <div className="absolute inset-[-40px] rounded-full border border-cyan-700/20 animate-spin" style={{ animationDuration: '30s', animationDirection: 'reverse' }} />
-                <div className="absolute inset-[-60px] rounded-full border border-cyan-700/10 animate-spin" style={{ animationDuration: '40s' }} />
+                <div className="absolute -inset-5 rounded-full border-2 border-cyan-700/30 animate-spin" style={{ animationDuration: '20s' }} />
+                <div className="absolute -inset-10 rounded-full border border-cyan-700/20 animate-spin" style={{ animationDuration: '30s', animationDirection: 'reverse' }} />
+                <div className="absolute -inset-15 rounded-full border border-cyan-700/10 animate-spin" style={{ animationDuration: '40s' }} />
                 
                 {/* Glow effect */}
                 <div className="absolute inset-0 bg-linear-to-br from-cyan-800 via-cyan-900 to-cyan-950 rounded-full blur-3xl opacity-30 group-hover:opacity-50 transition-opacity duration-500" />
@@ -216,9 +216,10 @@ export default function About() {
                 {/* Main avatar */}
                 <div className="relative w-full h-full bg-linear-to-br from-gray-950 to-slate-950 rounded-full border-4 border-cyan-700/30 flex items-center justify-center overflow-hidden group-hover:border-cyan-700/60 transition-all duration-500 group-hover:scale-105">
                   <Image 
-                    src="/manu2.jpeg" 
+                    src="/manu3.jpeg" 
                     alt="Manu S"
                     fill
+                    sizes="(max-width: 768px) 80vw, (max-width: 1024px) 40vw, 400px"
                     className="object-cover"
                     style={{ objectPosition: 'center center' }}
                     priority
@@ -226,16 +227,12 @@ export default function About() {
                   <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
                 </div>
 
-                {/* Floating tech badges */}
-                <div className="absolute -top-4 -right-4 bg-slate-800/30 backdrop-blur-sm px-3 py-1.5 rounded-full border border-cyan-700/30 text-cyan-400 text-sm animate-bounce flex items-center gap-1.5" style={{ animationDuration: '3s' }}>
-                  <ReactIcon size={16} /> React
-                </div>
-                <div className="absolute -bottom-4 -left-4 bg-cyan-900/20 backdrop-blur-sm px-3 py-1.5 rounded-full border border-cyan-700/30 text-cyan-500 text-sm animate-bounce flex items-center gap-1.5" style={{ animationDuration: '3.5s', animationDelay: '0.5s' }}>
-                  <NextIcon size={16} /> Next.js
-                </div>
-                <div className="absolute top-1/2 -right-8 bg-slate-800/30 backdrop-blur-sm px-3 py-1 rounded-full border border-cyan-700/30 text-cyan-400 text-sm animate-bounce" style={{ animationDuration: '4s', animationDelay: '1s' }}>
-                  AI/ML 🤖
-                </div>
+                {/* Floating particles - subtle and elegant */}
+                <div className="absolute -top-8 right-12 w-2 h-2 bg-cyan-400 rounded-full animate-pulse" style={{ animationDuration: '2s' }} />
+                <div className="absolute top-16 -right-6 w-3 h-3 bg-teal-500 rounded-full animate-pulse" style={{ animationDuration: '2.5s', animationDelay: '0.3s' }} />
+                <div className="absolute -bottom-6 left-20 w-2 h-2 bg-cyan-500 rounded-full animate-pulse" style={{ animationDuration: '3s', animationDelay: '0.6s' }} />
+                <div className="absolute bottom-24 -left-8 w-2.5 h-2.5 bg-cyan-600 rounded-full animate-pulse" style={{ animationDuration: '2.8s', animationDelay: '0.9s' }} />
+                <div className="absolute top-32 -left-4 w-1.5 h-1.5 bg-teal-400 rounded-full animate-pulse" style={{ animationDuration: '2.3s', animationDelay: '1.2s' }} />
               </div>
             </div>
 
@@ -277,7 +274,7 @@ export default function About() {
               <div className="flex flex-wrap gap-4 pt-4">
                 <a 
                   href="/resume.pdf" 
-                  target="_blank" 
+                  download="Manu_S_Resume.pdf"
                   className="group relative bg-linear-to-r from-cyan-600 to-teal-500 text-gray-200 font-semibold py-3 px-8 rounded-full overflow-hidden transition-all duration-300 transform hover:scale-105 hover:shadow-xl hover:shadow-cyan-800/25"
                 >
                   <span className="relative z-10 flex items-center gap-2">

@@ -160,7 +160,13 @@ export default function ThreeBackground() {
           line.geometry.attributes.position.needsUpdate = true;
           
           // Pulsing opacity
-          line.material.opacity = (0.35 - layerIndex * 0.08) + Math.sin(time * 2 + ribbonIndex) * 0.15;
+          if (Array.isArray(line.material)) {
+            line.material.forEach(mat => {
+              if ('opacity' in mat) mat.opacity = (0.35 - layerIndex * 0.08) + Math.sin(time * 2 + ribbonIndex) * 0.15;
+            });
+          } else if ('opacity' in line.material) {
+            line.material.opacity = (0.35 - layerIndex * 0.08) + Math.sin(time * 2 + ribbonIndex) * 0.15;
+          }
         });
       });
 
@@ -223,7 +229,11 @@ export default function ThreeBackground() {
       ribbons.forEach(ribbon => {
         ribbon.lines.forEach(line => {
           line.geometry.dispose();
-          line.material.dispose();
+          if (Array.isArray(line.material)) {
+            line.material.forEach(mat => mat.dispose());
+          } else {
+            line.material.dispose();
+          }
         });
       });
 

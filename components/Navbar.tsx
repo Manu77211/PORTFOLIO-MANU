@@ -1,10 +1,13 @@
 'use client';
 
+import { useState } from 'react';
 import Link from 'next/link';
 
 export default function Navbar() {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
   return (
-    <nav className="fixed top-6 left-4 right-4 z-50 backdrop-blur-xl bg-linear-to-r from-cyan-950/80 via-slate-900/90 to-blue-900/80 border border-cyan-700/30 rounded-full px-8 py-4 shadow-2xl shadow-cyan-800/20 max-w-6xl mx-auto transition-all duration-300 relative">
+    <nav className="fixed top-6 left-4 right-4 z-50 backdrop-blur-xl bg-linear-to-r from-cyan-950/80 via-slate-900/90 to-blue-900/80 border border-cyan-700/30 rounded-full px-8 py-4 shadow-2xl shadow-cyan-800/20 max-w-6xl mx-auto transition-all duration-300">
       {/* Animated glowing border effect */}
       <div className="absolute inset-0 rounded-full pointer-events-none">
         <div className="absolute inset-0 rounded-full border-2 border-transparent animate-border-glow"></div>
@@ -72,13 +75,52 @@ export default function Navbar() {
 
         {/* Mobile menu button */}
         <div className="md:hidden">
-          <button className="text-gray-400 hover:text-cyan-500 hover:bg-slate-800/30 border border-cyan-700/30 p-2 rounded-full cursor-pointer">
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
+          <button 
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className="text-gray-400 hover:text-cyan-500 hover:bg-slate-800/30 border border-cyan-700/30 p-2 rounded-full cursor-pointer transition-colors"
+            aria-label="Toggle menu"
+          >
+            {isMobileMenuOpen ? (
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            ) : (
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            )}
           </button>
         </div>
       </div>
+
+      {/* Mobile menu dropdown */}
+      {isMobileMenuOpen && (
+        <div className="md:hidden absolute top-full left-0 right-0 mt-2 mx-4 bg-slate-900/95 backdrop-blur-xl border border-cyan-700/30 rounded-2xl shadow-2xl shadow-cyan-800/20 overflow-hidden animate-fade-in">
+          <div className="flex flex-col p-4 space-y-2">
+            <Link 
+              href="/projects" 
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="text-gray-400 hover:text-cyan-400 hover:bg-slate-800/50 transition-all duration-200 px-4 py-3 rounded-lg cursor-pointer"
+            >
+              Projects
+            </Link>
+            <Link 
+              href="/skills" 
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="text-gray-400 hover:text-cyan-400 hover:bg-slate-800/50 transition-all duration-200 px-4 py-3 rounded-lg cursor-pointer"
+            >
+              Skills
+            </Link>
+            <Link 
+              href="/profile" 
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="text-gray-400 hover:text-cyan-400 hover:bg-slate-800/50 transition-all duration-200 px-4 py-3 rounded-lg cursor-pointer"
+            >
+              Profile
+            </Link>
+          </div>
+        </div>
+      )}
     </nav>
   );
 }
