@@ -29,7 +29,7 @@ export default function Projects() {
       category: ["AI/ML", "Full Stack"],
       image: "/multiagent.jpeg",
       github: "https://github.com/Manu77211/multiagent.git",
-      demo: "https://multi-agent-code-debugger.vercel.app/"
+      demo: "https://dev-minds-chi.vercel.app/"
     },
     {
       id: 3,
